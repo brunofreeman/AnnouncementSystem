@@ -5,15 +5,25 @@
 		<style>
 			* {
 				position:absolute;
+				text-align:center;
+				color:white;
+				font-weight:bold;
+				font-family:sans-serif;
 			}
 			body {
-				background-image:url("images\\background.png");
+				/*background-image:url("images\\background.png");*/
 				background-size:100vw 100vh;
 				margin:0%;
+			}
+			span {
+				position:relative;
 			}
 			.card {
 				border-radius:1vh;
 				background-color:rgba(255, 255, 255, 0.25);
+			}
+			.section {
+				height:20vh;
 			}
 			#ribbon {
 				height:15vh;
@@ -34,20 +44,17 @@
 				left:38vw;
 			}
 			#dateTimePeriodCard {
-				height:20vh;
 				width:36vw;
 				top:16vh;
 				left:1vw;
 			}
 			#dateSection {
-				height:20vh;
 				width:10vw;
 				background-color:maroon;
 				border-top-left-radius:1vh;
 				border-bottom-left-radius:1vh;
 			}
 			#timeSection {
-				height:20vh;
 				width:20vw;
 				left:10vw;
 				background-color:red;
@@ -71,14 +78,59 @@
 
 	<body>
 		<div id="ribbon">
-			<img id="logo" src="images\logo.png">
+			<!--<img id="logo" src="images\logo.png">-->
 		</div>
 		<div id="announcementsCard" class="card"></div>
 		<div id="dateTimePeriodCard" class="card">
-			<div id="dateSection">X<br/>X</div>
-			<div id="timeSection">X:XX</div>
-			<div id="periodSection">X<br/>XX</div>
+			<div id="dateSection" class="section">
+				<span>X<br/>X</span>
+			</div>
+			<div id="timeSection" class="section">
+				<span>X:XX</span>
+			</div>
+			<div id="periodSection" class="section">
+				<span>X<br/>XX</span>
+			</div>
 		</div>
 		<div id="mediaCard" class="card"></div>
 	</body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.textfill.js"></script>
+	<script type="text/javascript">
+		function resizeText() {
+			$('#dateSection').textfill({
+				maxFontPixels: 200
+			});
+			$('#timeSection').textfill({
+				maxFontPixels: 200
+			});
+			$('#periodSection').textfill({
+				maxFontPixels: 200
+			});
+		}
+		function updateClock() {
+			var now = new Date();
+			var hour = now.getHours();
+			var minute = now.getMinutes();
+			var ampm = "AM";
+			if (hour == 0) {
+				hour = 12;
+			} else if (hour == 12) {
+				ampm = "PM"
+			} else if (hour > 12) {
+			    hour -= 12;
+			    ampm = "PM";
+			}
+			if (minute < 10) {
+			    minute = "0" + minute;
+			}
+			$('#timeSection').html("<span>" + hour + ":" + minute + " " + ampm + "</span>");
+			var months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+			$('#dateSection').html("<span>" + months[now.getMonth()] + "<br/>" + now.getDate() + "</span>");
+			resizeText();
+	    	setTimeout(updateClock, 5000);
+		}
+		window.addEventListener("resize", resizeText);
+		updateClock();
+	</script>
 </html>
