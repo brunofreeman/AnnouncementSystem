@@ -2,6 +2,7 @@
 	<head>
 		<meta content="charset=utf-8" />
 		<title>Announcements</title>
+		<link rel="icon" href="images\logo.png">
 		<style>
 			* {
 				position:absolute;
@@ -23,7 +24,6 @@
 				background-color:rgba(255, 255, 255, 0.25);
 			}
 			.section {
-				height:20vh;
 				display:flex;
     			align-items:center;
     			justify-content:center;
@@ -46,28 +46,37 @@
 				top:16vh;
 				left:38vw;
 			}
-			#dateTimePeriodCard {
+			#dateTimeLetterDayPeriodCard {
 				width:36vw;
 				top:16vh;
 				left:1vw;
 			}
 			#dateSection {
+				height:20vh;
 				width:10vw;
 				background-color:maroon;
 				border-top-left-radius:1vh;
 				border-bottom-left-radius:1vh;
 			}
 			#timeSection {
+				height:20vh;
 				width:20vw;
 				left:10vw;
 				background-color:red;
 			}
-			#periodSection {
-				height:20vh;
+			#letterDaySection {
+				height:10vh;
 				width:6vw;
 				left:30vw;
 				background-color:blue;
 				border-top-right-radius:1vh;
+			}
+			#periodSection {
+				height:10vh;
+				width:6vw;
+				left:30vw;
+				top:10vh;
+				background-color:blue;
 				border-bottom-right-radius:1vh;
 			}
 			#mediaCard {
@@ -84,15 +93,18 @@
 			<img id="logo" src="images\logo.png">
 		</div>
 		<div id="announcementsCard" class="card"></div>
-		<div id="dateTimePeriodCard" class="card">
+		<div id="dateTimeLetterDayPeriodCard" class="card">
 			<div id="dateSection" class="section">
 				<span>X<br/>X</span>
 			</div>
 			<div id="timeSection" class="section">
 				<span>X:XX</span>
 			</div>
+			<div id="letterDaySection" class="section">
+				<span>X</span>
+			</div>
 			<div id="periodSection" class="section">
-				<span>X<br/>XX</span>
+				<span>XX</span>
 			</div>
 		</div>
 		<div id="mediaCard" class="card"></div>
@@ -107,6 +119,9 @@
 			$('#timeSection').textfill({
 				maxFontPixels: 200
 			});
+			$('#letterDaySection').textfill({
+				maxFontPixels: 200
+			});
 			$('#periodSection').textfill({
 				maxFontPixels: 200
 			});
@@ -116,6 +131,66 @@
 			var hour = now.getHours();
 			var minute = now.getMinutes();
 			var ampm = "AM";
+			var period = "X";
+			switch(hour) {
+				case 7:
+					period = "HR";
+					break;
+				case 8:
+					if (minute >= 38) {
+						period = "P2";
+					} else {
+						period = "P1";
+					}
+					break;
+				case 9:
+					if (minute >=  20) {
+						period = "P3";
+					} else {
+						period = "P2";
+					}
+				case 10:
+					if (minute >= 44) {
+						period = "P5";
+					} else if (minute >= 2) {
+						period = "P4";
+					} else {
+						period = "P3";
+					}
+					break;
+				case 11:
+					if (minute >= 26) {
+						period = "P6";
+					} else {
+						period = "P5";
+					}
+					break;
+				case 12:
+					if (minute >= 50) {
+						period = "P8";
+					} else if (minute >= 8) {
+						period = "P7";
+					} else {
+						period = "P6";
+					}
+					break;
+				case 13:
+					if (minute >= 32) {
+						period = "P9";
+					} else {
+						period = "P8";
+					}
+					break;
+				case 14:
+					if (minute >= 45) {
+						period = "AS";
+					} else {
+						period = "AP";
+					}
+					break;
+				default:
+					period = "AS";
+			}
 			if (hour == 0) {
 				hour = 12;
 			} else if (hour == 12) {
@@ -130,10 +205,51 @@
 			$('#timeSection').html("<span>" + hour + ":" + minute + " " + ampm + "</span>");
 			var months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 			$('#dateSection').html("<span>" + months[now.getMonth()] + "<br/>" + now.getDate() + "</span>");
+			$('#periodSection').html("<span>" + period + "</span>");
 			resizeText();
 	    	setTimeout(updateClock, 5000);
 		}
 		window.addEventListener("resize", resizeText);
 		updateClock();
+		//client id = 835795750372-1hej792ghu2omccu5061a2nsrtrjuhh2.apps.googleusercontent.com
+		//client secret = dL5r3yMMjmeHxKNPHAjHbu9f
+		//api key = AIzaSyBt5O0GLMXaSYKphWXikYa9CQ2HcdiKhjw
 	</script>
+	<script type="text/javascript">
+      var CLIENT_ID = '835795750372-1hej792ghu2omccu5061a2nsrtrjuhh2.apps.googleusercontent.com';
+      var API_KEY = 'AIzaSyBt5O0GLMXaSYKphWXikYa9CQ2HcdiKhjw';
+      var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
+      var SCOPES = "https://www.googleapis.com/auth/spreadsheets.readonly";
+
+      function handleClientLoad() {
+        gapi.load('client:auth2', initClient);
+      }
+
+      function initClient() {
+        gapi.client.init({
+          apiKey: API_KEY,
+          clientId: CLIENT_ID,
+          discoveryDocs: DISCOVERY_DOCS,
+          scope: SCOPES
+        }).then(function () {
+          pullSheetData();
+        });
+      }
+
+      function pullSheetData() {
+        gapi.client.sheets.spreadsheets.values.get({
+          spreadsheetId: '1ovki_EYdu7FC2OZKbxBvnwiKHkePdcamvjXzuXIw4NA',
+          range: 'Calendar!C1',
+        }).then(function(response) {
+          var range = response.result.values;
+          $('#letterDaySection').html("<span>" + range[0][0] + "</span>");
+          resizeText();
+        });
+      }
+    </script>
+    <script
+    	async defer src="https://apis.google.com/js/api.js"
+      	onload="this.onload=function(){};handleClientLoad()"
+      	onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
 </html>
