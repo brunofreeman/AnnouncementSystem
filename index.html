@@ -104,6 +104,8 @@
 		    height:83vh;
 		    width:61vw;
 		}
+		.carousel-inner > .item {
+		}
 	</style>
 </head>
 
@@ -111,13 +113,14 @@
 	<div id="ribbon">
 		<img id="logo" src="images\logo.png">
 	</div>
-	<div id="announcementsCard" class="card carousel slide" data-ride="carousel">
-		<!-- indicators (dot nav) -->
+	<div id="announcementsCard" class="card carousel slide" data-ride="carousel" data-interval="2000">
+		<!-- indicators (dot nav)
 		<ol class="carousel-indicators">
 			<li data-target="#announcementsCard" data-slide-to="0" class="active"></li>
 			<li data-target="#announcementsCard" data-slide-to="1"></li>
 			<li data-target="#announcementsCard" data-slide-to="2"></li>
 		</ol>	
+		-->
 		<!--wrapper for slides -->
 		<div class="carousel-inner" role="listbox">
 			<div class="item active">
@@ -130,13 +133,14 @@
 				<img src="images\blue.png" alt="blue"/>
 			</div>
 		</div>
-		<!-- controls (next and prev buttons) -->
+		<!-- controls (next and prev buttons)
 		<a class="left carousel-control" href="#announcementsCard" role="button" data-slide="prev">
 			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 		</a>
 		<a class="right carousel-control" href="#announcementsCard" role="button" data-slide="next">
 			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 		</a>
+		-->
 	</div>
 	<div id="dateTimeLetterDayPeriodCard" class="card">
 		<div id="dateSection" class="section">
