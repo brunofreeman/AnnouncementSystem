@@ -1,255 +1,306 @@
 <!DOCTYPE html>
-	<head>
-		<meta content="charset=utf-8" />
-		<title>Announcements</title>
-		<link rel="icon" href="images\logo.png">
-		<style>
-			* {
-				position:absolute;
-				text-align:center;
-				color:white;
-				font-weight:bold;
-				font-family:sans-serif;
-			}
-			body {
-				background-image:url("images\\background.png");
-				background-size:100vw 100vh;
-				margin:0%;
-			}
-			span {
-				position:relative;
-			}
-			.card {
-				border-radius:1vh;
-				background-color:rgba(255, 255, 255, 0.25);
-			}
-			.section {
-				display:flex;
-    			align-items:center;
-    			justify-content:center;
-			}
-			#ribbon {
-				height:15vh;
-				width:100vw;
-				background-color:red;
-			}
-			#logo {
-				position:relative;
-				height:15vh;
-				display:block;
-				margin-left:auto;
-				margin-right:auto;
-			}
-			#announcementsCard {
-				height:83vh;
-				width:61vw;
-				top:16vh;
-				left:38vw;
-			}
-			#dateTimeLetterDayPeriodCard {
-				width:36vw;
-				top:16vh;
-				left:1vw;
-			}
-			#dateSection {
-				height:20vh;
-				width:10vw;
-				background-color:maroon;
-				border-top-left-radius:1vh;
-				border-bottom-left-radius:1vh;
-			}
-			#timeSection {
-				height:20vh;
-				width:20vw;
-				left:10vw;
-				background-color:red;
-			}
-			#letterDaySection {
-				height:10vh;
-				width:6vw;
-				left:30vw;
-				background-color:blue;
-				border-top-right-radius:1vh;
-			}
-			#periodSection {
-				height:10vh;
-				width:6vw;
-				left:30vw;
-				top:10vh;
-				background-color:blue;
-				border-bottom-right-radius:1vh;
-			}
-			#mediaCard {
-				height:62vh;
-				width:36vw;
-				top:37vh;
-				left:1vw;
-			}
-		</style>
-	</head>
-
-	<body>
-		<div id="ribbon">
-			<img id="logo" src="images\logo.png">
-		</div>
-		<div id="announcementsCard" class="card"></div>
-		<div id="dateTimeLetterDayPeriodCard" class="card">
-			<div id="dateSection" class="section">
-				<span>X<br/>X</span>
-			</div>
-			<div id="timeSection" class="section">
-				<span>X:XX</span>
-			</div>
-			<div id="letterDaySection" class="section">
-				<span>X</span>
-			</div>
-			<div id="periodSection" class="section">
-				<span>XX</span>
-			</div>
-		</div>
-		<div id="mediaCard" class="card"></div>
-	</body>
+<head>
+	<meta content="charset=utf-8" />
+	<title>Announcements</title>
+	<link rel="icon" href="images\logo.png">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.textfill.js"></script>
-	<script type="text/javascript">
-		function resizeText() {
-			$('#dateSection').textfill({
-				maxFontPixels: 200
-			});
-			$('#timeSection').textfill({
-				maxFontPixels: 200
-			});
-			$('#letterDaySection').textfill({
-				maxFontPixels: 200
-			});
-			$('#periodSection').textfill({
-				maxFontPixels: 200
-			});
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<style>
+		* {
+			text-align:center;
+			color:white;
+			font-weight:bold;
+			font-family:sans-serif;
 		}
-		function updateClock() {
-			var now = new Date();
-			var hour = now.getHours();
-			var minute = now.getMinutes();
-			var ampm = "AM";
-			var period = "X";
-			switch(hour) {
-				case 7:
-					period = "HR";
-					break;
-				case 8:
-					if (minute >= 38) {
-						period = "P2";
-					} else {
-						period = "P1";
-					}
-					break;
-				case 9:
-					if (minute >=  20) {
-						period = "P3";
-					} else {
-						period = "P2";
-					}
-				case 10:
-					if (minute >= 44) {
-						period = "P5";
-					} else if (minute >= 2) {
-						period = "P4";
-					} else {
-						period = "P3";
-					}
-					break;
-				case 11:
-					if (minute >= 26) {
-						period = "P6";
-					} else {
-						period = "P5";
-					}
-					break;
-				case 12:
-					if (minute >= 50) {
-						period = "P8";
-					} else if (minute >= 8) {
-						period = "P7";
-					} else {
-						period = "P6";
-					}
-					break;
-				case 13:
-					if (minute >= 32) {
-						period = "P9";
-					} else {
-						period = "P8";
-					}
-					break;
-				case 14:
-					if (minute >= 45) {
-						period = "AS";
-					} else {
-						period = "AP";
-					}
-					break;
-				default:
-					period = "AS";
-			}
-			if (hour == 0) {
-				hour = 12;
-			} else if (hour == 12) {
-				ampm = "PM"
-			} else if (hour > 12) {
-			    hour -= 12;
-			    ampm = "PM";
-			}
-			if (minute < 10) {
-			    minute = "0" + minute;
-			}
-			$('#timeSection').html("<span>" + hour + ":" + minute + " " + ampm + "</span>");
-			var months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-			$('#dateSection').html("<span>" + months[now.getMonth()] + "<br/>" + now.getDate() + "</span>");
-			$('#periodSection').html("<span>" + period + "</span>");
-			resizeText();
-	    	setTimeout(updateClock, 5000);
+		body {
+			background-image:url("images\\background.png");
+			background-size:100vw 100vh;
+			margin:0%;
 		}
-		window.addEventListener("resize", resizeText);
-		updateClock();
+		span {
+			position:relative;
+		}
+		.card {
+			position:absolute;
+			border-radius:1vh;
+			background-color:rgba(255, 255, 255, 0.25);
+		}
+		.section {
+			position:absolute;
+			display:flex;
+			align-items:center;
+			justify-content:center;
+		}
+		#ribbon {
+			position:absolute;
+			height:15vh;
+			width:100vw;
+			background-color:red;
+		}
+		#logo {
+			position:relative;
+			height:15vh;
+			display:block;
+			margin-left:auto;
+			margin-right:auto;
+		}
+		#announcementsCard {
+			height:83vh;
+			width:61vw;
+			top:16vh;
+			left:38vw;
+		}
+		#dateTimeLetterDayPeriodCard {
+			width:36vw;
+			top:16vh;
+			left:1vw;
+		}
+		#dateSection {
+			height:20vh;
+			width:10vw;
+			background-color:maroon;
+			border-top-left-radius:1vh;
+			border-bottom-left-radius:1vh;
+		}
+		#timeSection {
+			height:20vh;
+			width:20vw;
+			left:10vw;
+			background-color:red;
+		}
+		#letterDaySection {
+			height:10vh;
+			width:6vw;
+			left:30vw;
+			background-color:blue;
+			border-top-right-radius:1vh;
+		}
+		#periodSection {
+			height:10vh;
+			width:6vw;
+			left:30vw;
+			top:10vh;
+			background-color:blue;
+			border-bottom-right-radius:1vh;
+		}
+		#mediaCard {
+			height:62vh;
+			width:36vw;
+			top:37vh;
+			left:1vw;
+		}
+		.carousel {
+		    height:83vh;
+			width:61vw;
+			top:16vh;
+			left:38vw;
+		}
+		.item {
+		    height:83vh;
+		    width:61vw;
+		}
+		.carousel-inner > .item > img {
+		    height:83vh;
+		    width:61vw;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="ribbon">
+		<img id="logo" src="images\logo.png">
+	</div>
+	<div id="announcementsCard" class="card carousel slide" data-ride="carousel">
+		<!-- indicators (dot nav) -->
+		<ol class="carousel-indicators">
+			<li data-target="#announcementsCard" data-slide-to="0" class="active"></li>
+			<li data-target="#announcementsCard" data-slide-to="1"></li>
+			<li data-target="#announcementsCard" data-slide-to="2"></li>
+		</ol>	
+		<!--wrapper for slides -->
+		<div class="carousel-inner" role="listbox">
+			<div class="item active">
+				<img src="images\red.png" alt="red"/>
+			</div>
+			<div class="item">
+				<img src="images\green.png" alt="green"/>
+			</div>
+			<div class="item">
+				<img src="images\blue.png" alt="blue"/>
+			</div>
+		</div>
+		<!-- controls (next and prev buttons) -->
+		<a class="left carousel-control" href="#announcementsCard" role="button" data-slide="prev">
+			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+		</a>
+		<a class="right carousel-control" href="#announcementsCard" role="button" data-slide="next">
+			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+		</a>
+	</div>
+	<div id="dateTimeLetterDayPeriodCard" class="card">
+		<div id="dateSection" class="section">
+			<span>X<br/>X</span>
+		</div>
+		<div id="timeSection" class="section">
+			<span>X:XX</span>
+		</div>
+		<div id="letterDaySection" class="section">
+			<span>X</span>
+		</div>
+		<div id="periodSection" class="section">
+			<span>XX</span>
+		</div>
+	</div>
+	<div id="mediaCard" class="card"></div>
+</body>
+
+<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.textfill.js"></script>
+
+<script type="text/javascript">
+	function resizeText() {
+		$('#dateSection').textfill({
+			maxFontPixels: 200
+		});
+		$('#timeSection').textfill({
+			maxFontPixels: 200
+		});
+		$('#letterDaySection').textfill({
+			maxFontPixels: 200
+		});
+		$('#periodSection').textfill({
+			maxFontPixels: 200
+		});
+	}
+	function updateClock() {
+		var now = new Date();
+		var hour = now.getHours();
+		var minute = now.getMinutes();
+		var ampm = "AM";
+		var period = "X";
+		switch(hour) {
+			case 7:
+			period = "HR";
+			break;
+			case 8:
+			if (minute >= 38) {
+				period = "P2";
+			} else {
+				period = "P1";
+			}
+			break;
+			case 9:
+			if (minute >=  20) {
+				period = "P3";
+			} else {
+				period = "P2";
+			}
+			case 10:
+			if (minute >= 44) {
+				period = "P5";
+			} else if (minute >= 2) {
+				period = "P4";
+			} else {
+				period = "P3";
+			}
+			break;
+			case 11:
+			if (minute >= 26) {
+				period = "P6";
+			} else {
+				period = "P5";
+			}
+			break;
+			case 12:
+			if (minute >= 50) {
+				period = "P8";
+			} else if (minute >= 8) {
+				period = "P7";
+			} else {
+				period = "P6";
+			}
+			break;
+			case 13:
+			if (minute >= 32) {
+				period = "P9";
+			} else {
+				period = "P8";
+			}
+			break;
+			case 14:
+			if (minute >= 45) {
+				period = "AS";
+			} else {
+				period = "AP";
+			}
+			break;
+			default:
+			period = "AS";
+		}
+		if (hour == 0) {
+			hour = 12;
+		} else if (hour == 12) {
+			ampm = "PM"
+		} else if (hour > 12) {
+			hour -= 12;
+			ampm = "PM";
+		}
+		if (minute < 10) {
+			minute = "0" + minute;
+		}
+		$('#timeSection').html("<span>" + hour + ":" + minute + " " + ampm + "</span>");
+		var months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+		$('#dateSection').html("<span>" + months[now.getMonth()] + "<br/>" + now.getDate() + "</span>");
+		$('#periodSection').html("<span>" + period + "</span>");
+		resizeText();
+		setTimeout(updateClock, 5000);
+	}
+	window.addEventListener("resize", resizeText);
+	updateClock();
+	$('#announcementsCard').carousel();
 		//client id = 835795750372-1hej792ghu2omccu5061a2nsrtrjuhh2.apps.googleusercontent.com
 		//client secret = dL5r3yMMjmeHxKNPHAjHbu9f
 		//api key = AIzaSyBt5O0GLMXaSYKphWXikYa9CQ2HcdiKhjw
 	</script>
+
 	<script type="text/javascript">
-      var CLIENT_ID = '835795750372-1hej792ghu2omccu5061a2nsrtrjuhh2.apps.googleusercontent.com';
-      var API_KEY = 'AIzaSyBt5O0GLMXaSYKphWXikYa9CQ2HcdiKhjw';
-      var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
-      var SCOPES = "https://www.googleapis.com/auth/spreadsheets.readonly";
+		var CLIENT_ID = '835795750372-1hej792ghu2omccu5061a2nsrtrjuhh2.apps.googleusercontent.com';
+		var API_KEY = 'AIzaSyBt5O0GLMXaSYKphWXikYa9CQ2HcdiKhjw';
+		var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
+		var SCOPES = "https://www.googleapis.com/auth/spreadsheets.readonly";
 
-      function handleClientLoad() {
-        gapi.load('client:auth2', initClient);
-      }
+		function handleClientLoad() {
+			gapi.load('client:auth2', initClient);
+		}
 
-      function initClient() {
-        gapi.client.init({
-          apiKey: API_KEY,
-          clientId: CLIENT_ID,
-          discoveryDocs: DISCOVERY_DOCS,
-          scope: SCOPES
-        }).then(function () {
-          pullSheetData();
-        });
-      }
+		function initClient() {
+			gapi.client.init({
+				apiKey: API_KEY,
+				clientId: CLIENT_ID,
+				discoveryDocs: DISCOVERY_DOCS,
+				scope: SCOPES
+			}).then(function () {
+				pullSheetData();
+			});
+		}
 
-      function pullSheetData() {
-        gapi.client.sheets.spreadsheets.values.get({
-          spreadsheetId: '1ovki_EYdu7FC2OZKbxBvnwiKHkePdcamvjXzuXIw4NA',
-          range: 'Calendar!C1',
-        }).then(function(response) {
-          var range = response.result.values;
-          $('#letterDaySection').html("<span>" + range[0][0] + "</span>");
-          resizeText();
-        });
-      }
-    </script>
-    <script
-    	async defer src="https://apis.google.com/js/api.js"
-      	onload="this.onload=function(){};handleClientLoad()"
-      	onreadystatechange="if (this.readyState === 'complete') this.onload()">
-    </script>
+		var letterDayCell = 'Calendar!C1'
+
+		function pullSheetData() {
+			gapi.client.sheets.spreadsheets.values.get({
+				spreadsheetId: '1ovki_EYdu7FC2OZKbxBvnwiKHkePdcamvjXzuXIw4NA',
+				range: letterDayCell,
+			}).then(function(response) {
+				var range = response.result.values;
+				$('#letterDaySection').html("<span>" + range[0][0] + "</span>");
+				resizeText();
+			});
+		}
+	</script>
+
+<script
+	async defer src="https://apis.google.com/js/api.js"
+	onload="this.onload=function(){};handleClientLoad()"
+	onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
+
 </html>
