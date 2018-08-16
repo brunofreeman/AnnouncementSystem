@@ -1,7 +1,7 @@
 # AnnouncementSystem
 
-## Useful commands (execute from from root directory):
-start python server:
+## Useful stuff:
+start python server (execute in command prompt from root directory):
 ```
 python -m http.server 8000
 ```
