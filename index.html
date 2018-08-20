@@ -122,7 +122,8 @@
 		</ol>	
 		-->
 		<!--wrapper for slides -->
-		<div class="carousel-inner" role="listbox">
+		<div id="carousel-item-container" class="carousel-inner" role="listbox">
+			<!-- manual items
 			<div class="item active">
 				<img src="images\red.png" alt="red"/>
 			</div>
@@ -132,6 +133,7 @@
 			<div class="item">
 				<img src="images\blue.png" alt="blue"/>
 			</div>
+			-->
 		</div>
 		<!-- controls (next and prev buttons)
 		<a class="left carousel-control" href="#announcementsCard" role="button" data-slide="prev">
@@ -180,86 +182,86 @@
 		var now = new Date();
 		var hour = now.getHours();
 		var minute = now.getMinutes();
-		var ampm = "AM";
-		var period = "X";
+		var ampm = 'AM';
+		var period = 'X';
 		switch(hour) {
 			case 7:
-			period = "HR";
+			period = 'HR';
 			break;
 			case 8:
 			if (minute >= 38) {
-				period = "P2";
+				period = 'P2';
 			} else {
-				period = "P1";
+				period = 'P1';
 			}
 			break;
 			case 9:
 			if (minute >=  20) {
-				period = "P3";
+				period = 'P3';
 			} else {
-				period = "P2";
+				period = 'P2';
 			}
 			case 10:
 			if (minute >= 44) {
-				period = "P5";
+				period = 'P5';
 			} else if (minute >= 2) {
-				period = "P4";
+				period = 'P4';
 			} else {
-				period = "P3";
+				period = 'P3';
 			}
 			break;
 			case 11:
 			if (minute >= 26) {
-				period = "P6";
+				period = 'P6';
 			} else {
-				period = "P5";
+				period = 'P5';
 			}
 			break;
 			case 12:
 			if (minute >= 50) {
-				period = "P8";
+				period = 'P8';
 			} else if (minute >= 8) {
-				period = "P7";
+				period = 'P7';
 			} else {
-				period = "P6";
+				period = 'P6';
 			}
 			break;
 			case 13:
 			if (minute >= 32) {
-				period = "P9";
+				period = 'P9';
 			} else {
-				period = "P8";
+				period = 'P8';
 			}
 			break;
 			case 14:
 			if (minute >= 45) {
-				period = "AS";
+				period = 'AS';
 			} else {
-				period = "AP";
+				period = 'AP';
 			}
 			break;
 			default:
-			period = "AS";
+			period = 'AS';
 		}
 		if (hour == 0) {
 			hour = 12;
 		} else if (hour == 12) {
-			ampm = "PM"
+			ampm = 'PM'
 		} else if (hour > 12) {
 			hour -= 12;
-			ampm = "PM";
+			ampm = 'PM';
 		}
 		if (minute < 10) {
-			minute = "0" + minute;
+			minute = '0' + minute;
 		}
-		$('#timeSection').html("<span>" + hour + ":" + minute + " " + ampm + "</span>");
-		var months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-		$('#dateSection').html("<span>" + months[now.getMonth()] + "<br/>" + now.getDate() + "</span>");
-		$('#periodSection').html("<span>" + period + "</span>");
+		$('#timeSection').html('<span>' + hour + ':' + minute + ' ' + ampm + '</span>');
+		var months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+		$('#dateSection').html('<span>' + months[now.getMonth()] + '<br/>' + now.getDate() + '</span>');
+		$('#periodSection').html('<span>' + period + '</span>');
 		resizeText();
 		setTimeout(updateClock, 5000);
 	}
-	window.addEventListener("resize", resizeText);
+	window.addEventListener('resize', resizeText);
 	updateClock();
 	$('#announcementsCard').carousel();
 		//client id = 835795750372-1hej792ghu2omccu5061a2nsrtrjuhh2.apps.googleusercontent.com
@@ -283,23 +285,60 @@
 				clientId: CLIENT_ID,
 				discoveryDocs: DISCOVERY_DOCS,
 				scope: SCOPES
-			}).then(function () {
+			}).then(function() {
 				pullSheetData();
 			});
 		}
 
+		function pullSheetData() {
+			pullLetterDay();
+			pullAnnouncements();
+		}
+
 		var letterDayCell = 'Calendar!C1'
 
-		function pullSheetData() {
+		function pullLetterDay() { //refresh on new day
 			gapi.client.sheets.spreadsheets.values.get({
 				spreadsheetId: '1ovki_EYdu7FC2OZKbxBvnwiKHkePdcamvjXzuXIw4NA',
 				range: letterDayCell,
 			}).then(function(response) {
-				var range = response.result.values;
-				$('#letterDaySection').html("<span>" + range[0][0] + "</span>");
+				var data = response.result.values;
+				$('#letterDaySection').html('<span>' + data[0][0] + '</span>');
 				resizeText();
 			});
 		}
+
+		var announcementDataRange = 'Approved Announcements!C:F'
+		var announcementColumn = 0;
+		var titleColumn = 1;
+		var categoryColumn = 2;
+		var imageURLColumn = 3;
+
+		function pullAnnouncements() { //refresh every so oftern
+			gapi.client.sheets.spreadsheets.values.get({
+				spreadsheetId: '1ovki_EYdu7FC2OZKbxBvnwiKHkePdcamvjXzuXIw4NA',
+				range: announcementDataRange,
+			}).then(function(response) {
+				var data = response.result.values;
+				for (var i = 1; i < data.length; i++) {
+					var element = '';
+					if (i == 1) {
+						element = '<div class="item active">';
+					} else {
+						element = '<div class="item">';
+					}
+					element += '<span>' + data[i][titleColumn] + '</span>';
+					element += '</br>';
+					element += '<span>' + data[i][announcementColumn] + '</span>';
+					element += '</br>';
+					element += '<img src="' + data[i][imageURLColumn] + '"/>';
+					element += '</div>';
+					$('#carousel-item-container').append(element);
+				}
+			});
+		}
+
+
 	</script>
 
 <script
