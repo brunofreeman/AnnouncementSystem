@@ -39,7 +39,6 @@
 			background-color:red;
 		}
 		#logo {
-			position:relative;
 			height:15vh;
 			display:block;
 			margin-left:auto;
@@ -90,21 +89,30 @@
 			top:37vh;
 			left:1vw;
 		}
-		.carousel {
+		/*.carousel {
 		    height:83vh;
 			width:61vw;
 			top:16vh;
 			left:38vw;
-		}
+		}*/
 		.item {
 		    height:83vh;
 		    width:61vw;
 		}
-		.carousel-inner > .item > img {
-		    height:83vh;
-		    width:61vw;
+		.itemTitle {
+			height:13vh;
 		}
-		.carousel-inner > .item {
+		.itemBody {
+			height:40vh;
+			top:13vh;
+		}
+		.itemImgDiv {
+			height:30vh;
+			top:53vh;
+		}
+		.itemImg {
+			max-height:100%;
+			max-width:100%;
 		}
 	</style>
 </head>
@@ -164,7 +172,7 @@
 <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.textfill.js"></script>
 
 <script type="text/javascript">
-	function resizeText() {
+	function resizeElements() {
 		$('#dateSection').textfill({
 			maxFontPixels: 200
 		});
@@ -177,6 +185,26 @@
 		$('#periodSection').textfill({
 			maxFontPixels: 200
 		});
+		$('.itemTitle').textfill({
+			maxFontPixels: 200
+		});
+		$('.itemBody').textfill({
+			maxFontPixels: 200
+		});
+		/*$('itemImg').each(function(i, item) {
+		    var img_height = $(item).height();
+		    var div_height = $(item).parent().height();
+		    if (img_height < div_height){
+		        var newMargin = (div_height - img_height) / 2 + 'px';
+		        $(item).css({'margin-top':newMargin});
+		    } else if (img_height > div_height){
+		        $(item).css({'width': 'auto', 'height': '100%'});
+		        var img_width = $(item).width();
+		        var div_width = $(item).parent().width();
+		        var newMargin = (div_width - img_width) / 2 + 'px';
+		        $(item).css({'margin-left':newMargin});
+	    	}
+		});*/
 	}
 	function updateClock() {
 		var now = new Date();
@@ -186,62 +214,62 @@
 		var period = 'X';
 		switch(hour) {
 			case 7:
-			period = 'HR';
-			break;
+				period = 'HR';
+				break;
 			case 8:
-			if (minute >= 38) {
-				period = 'P2';
-			} else {
-				period = 'P1';
-			}
-			break;
+				if (minute >= 38) {
+					period = 'P2';
+				} else {
+					period = 'P1';
+				}
+				break;
 			case 9:
-			if (minute >=  20) {
-				period = 'P3';
-			} else {
-				period = 'P2';
-			}
+				if (minute >=  20) {
+					period = 'P3';
+				} else {
+					period = 'P2';
+				}
 			case 10:
-			if (minute >= 44) {
-				period = 'P5';
-			} else if (minute >= 2) {
-				period = 'P4';
-			} else {
-				period = 'P3';
-			}
-			break;
+				if (minute >= 44) {
+					period = 'P5';
+				} else if (minute >= 2) {
+					period = 'P4';
+				} else {
+					period = 'P3';
+				}
+				break;
 			case 11:
-			if (minute >= 26) {
-				period = 'P6';
-			} else {
-				period = 'P5';
-			}
-			break;
+				if (minute >= 26) {
+					period = 'P6';
+				} else {
+					period = 'P5';
+				}
+				break;
 			case 12:
-			if (minute >= 50) {
-				period = 'P8';
-			} else if (minute >= 8) {
-				period = 'P7';
-			} else {
-				period = 'P6';
-			}
-			break;
+				if (minute >= 50) {
+					period = 'P8';
+				} else if (minute >= 8) {
+					period = 'P7';
+				} else {
+					period = 'P6';
+				}
+				break;
 			case 13:
-			if (minute >= 32) {
-				period = 'P9';
-			} else {
-				period = 'P8';
-			}
-			break;
+				if (minute >= 32) {
+					period = 'P9';
+				} else {
+					period = 'P8';
+				}
+				break;
 			case 14:
-			if (minute >= 45) {
-				period = 'AS';
-			} else {
-				period = 'AP';
-			}
-			break;
+				if (minute >= 45) {
+					period = 'AS';
+				} else {
+					period = 'AP';
+				}
+				break;
 			default:
-			period = 'AS';
+				period = 'AS';
 		}
 		if (hour == 0) {
 			hour = 12;
@@ -258,18 +286,21 @@
 		var months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 		$('#dateSection').html('<span>' + months[now.getMonth()] + '<br/>' + now.getDate() + '</span>');
 		$('#periodSection').html('<span>' + period + '</span>');
-		resizeText();
+		resizeElements();
 		setTimeout(updateClock, 5000);
 	}
-	window.addEventListener('resize', resizeText);
+	window.addEventListener('resize', resizeElements);
 	updateClock();
 	$('#announcementsCard').carousel();
-		//client id = 835795750372-1hej792ghu2omccu5061a2nsrtrjuhh2.apps.googleusercontent.com
-		//client secret = dL5r3yMMjmeHxKNPHAjHbu9f
-		//api key = AIzaSyBt5O0GLMXaSYKphWXikYa9CQ2HcdiKhjw
+	$('#announcementsCard').on('slid.bs.carousel', function() {
+	    resizeElements();
+	});
 	</script>
 
 	<script type="text/javascript">
+		//client id = 835795750372-1hej792ghu2omccu5061a2nsrtrjuhh2.apps.googleusercontent.com
+		//client secret = dL5r3yMMjmeHxKNPHAjHbu9f
+		//api key = AIzaSyBt5O0GLMXaSYKphWXikYa9CQ2HcdiKhjw
 		var CLIENT_ID = '835795750372-1hej792ghu2omccu5061a2nsrtrjuhh2.apps.googleusercontent.com';
 		var API_KEY = 'AIzaSyBt5O0GLMXaSYKphWXikYa9CQ2HcdiKhjw';
 		var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
@@ -304,7 +335,7 @@
 			}).then(function(response) {
 				var data = response.result.values;
 				$('#letterDaySection').html('<span>' + data[0][0] + '</span>');
-				resizeText();
+				resizeElements();
 			});
 		}
 
@@ -327,23 +358,21 @@
 					} else {
 						element = '<div class="item">';
 					}
-					element += '<span>' + data[i][titleColumn] + '</span>';
+					element += '<div class="itemTitle"><span>' + data[i][titleColumn] + '</span></div>';
 					element += '</br>';
-					element += '<span>' + data[i][announcementColumn] + '</span>';
+					element += '<div class="itemBody"><span>' + data[i][announcementColumn] + '</span></div>';
 					element += '</br>';
-					element += '<img src="' + data[i][imageURLColumn] + '"/>';
+					element += '<div class="itemImgDiv"><img class="itemImg" src="' + data[i][imageURLColumn] + '"/></div>';
 					element += '</div>';
 					$('#carousel-item-container').append(element);
 				}
+				resizeElements();
 			});
 		}
-
-
 	</script>
 
-<script
-	async defer src="https://apis.google.com/js/api.js"
-	onload="this.onload=function(){};handleClientLoad()"
-	onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
-
+	<script
+		async defer src="https://apis.google.com/js/api.js"
+		onload="this.onload=function(){};handleClientLoad()"
+		onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
 </html>
