@@ -108,7 +108,6 @@
 		}
 		.itemImgDiv {
 			height:30vh;
-			top:53vh;
 		}
 		.itemImg {
 			max-height:100%;
@@ -191,6 +190,9 @@
 		$('.itemBody').textfill({
 			maxFontPixels: 200
 		});
+		//$('.itemImg').height($('.itemImgDiv').height);
+		console.log($('.itemImg').height());
+		console.log($('.itemImgDiv').height())
 		/*$('itemImg').each(function(i, item) {
 		    var img_height = $(item).height();
 		    var div_height = $(item).parent().height();
@@ -359,9 +361,7 @@
 						element = '<div class="item">';
 					}
 					element += '<div class="itemTitle"><span>' + data[i][titleColumn] + '</span></div>';
-					element += '</br>';
 					element += '<div class="itemBody"><span>' + data[i][announcementColumn] + '</span></div>';
-					element += '</br>';
 					element += '<div class="itemImgDiv"><img class="itemImg" src="' + data[i][imageURLColumn] + '"/></div>';
 					element += '</div>';
 					$('#carousel-item-container').append(element);
