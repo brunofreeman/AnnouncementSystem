@@ -336,7 +336,7 @@
 		pullAnnouncements();
 	}
 
-	var letterDayCell = 'Calendar!C1'
+	var letterDayCell = 'Calendar!A1'
 
 	function pullLetterDay() { //refresh on new day
 		gapi.client.sheets.spreadsheets.values.get({
@@ -349,7 +349,7 @@
 		});
 	}
 
-	var announcementDataRange = 'Approved Announcements!C:F'
+	var announcementDataRange = 'Approved Announcements!C:E'
 	var announcementColumn = 0;
 	var titleColumn = 1;
 	var imageURLColumn = 2;
