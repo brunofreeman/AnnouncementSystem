@@ -4,114 +4,145 @@
 	<title>Announcements</title>
 	<link rel="icon" href="images\logo.png">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<style>
 		* {
-			text-align:center;
-			color:white;
-			font-weight:bold;
-			font-family:sans-serif;
+			text-align: center;
+			font-weight: bold;
+			font-family: sans-serif;
 		}
 		body {
-			background-image:url("images\\background.png");
-			background-size:100vw 100vh;
-			margin:0%;
+			background-image: url("images\\background.png");
+			background-size: 100vw 100vh;
+			margin: 0%;
 		}
 		span {
-			position:relative;
+			position: relative;
 		}
 		.card {
-			position:absolute;
-			border-radius:1vh;
-			background-color:rgba(255, 255, 255, 0.25);
-		}
-		.section {
-			position:absolute;
-			display:flex;
-			align-items:center;
-			justify-content:center;
+			position: absolute;
+			border-radius: 1vh;
+			background-color: rgba(255, 255, 255, 0.25);
 		}
 		#ribbon {
-			position:absolute;
-			height:15vh;
-			width:100vw;
-			background-color:red;
+			position: absolute;
+			height: 8vh;
+			width: 100vw;
+			background-color: #b71c1c;
 		}
 		#logo {
-			height:15vh;
-			display:block;
-			margin-left:auto;
-			margin-right:auto;
+			height: 8vh;
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
 		}
 		#announcementsCard {
-			height:83vh;
-			width:61vw;
-			top:16vh;
-			left:38vw;
+			height: 90vh;
+			width: 61vw;
+			top: 9vh;
+			left: 38vw;
 		}
-		#dateTimeLetterDayPeriodCard {
-			width:36vw;
-			top:16vh;
-			left:1vw;
+		#infoCard {
+			width: 36vw;
+			top: 9vh;
+			left: 1vw;
+		}
+		.section {
+			color: white;
+			position: absolute;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		#monthSection {
+			height: 10vh;
+			width: 10vw;
+			background-color: #e53935;
+			border-top-left-radius: 1vh;
+			padding: .5vh .5vw 0vh .5vw;
 		}
 		#dateSection {
-			height:20vh;
-			width:10vw;
-			background-color:maroon;
-			border-top-left-radius:1vh;
-			border-bottom-left-radius:1vh;
+			height: 18vh;
+			width: 10vw;
+			top: 10vh;
+			background-color: #e53935;
+			border-bottom-left-radius: 1vh;
+			padding: 0vh .5vw .5vh .5vw;
 		}
 		#timeSection {
-			height:20vh;
-			width:20vw;
-			left:10vw;
-			background-color:red;
+			height: 18vh;
+			width: 20vw;
+			left: 10vw;
+			background-color: #ff1744;
+			padding: .5vh .5vw 0vh .5vw;
+		}
+		#ampmSection {
+			height: 10vh;
+			width: 20vw;
+			top: 18vh;
+			left: 10vw;
+			background-color: #ff1744;
+			padding: 0vh .5vw 0.5vh .5vw;
 		}
 		#letterDaySection {
-			height:10vh;
-			width:6vw;
-			left:30vw;
-			background-color:blue;
-			border-top-right-radius:1vh;
+			height: 9vh;
+			width: 6vw;
+			left: 30vw;
+			background-color: #1e90ff;
+			border-top-right-radius: 1vh;
+			padding: .5vh .5vw 0vh .5vw;
 		}
 		#periodSection {
-			height:10vh;
-			width:6vw;
-			left:30vw;
-			top:10vh;
-			background-color:blue;
-			border-bottom-right-radius:1vh;
+			height: 10vh;
+			width: 6vw;
+			left: 30vw;
+			top: 9vh;
+			background-color: #1e90ff;
+			padding: 0vh .5vw 0.5vh .5vw;
+		}
+		#cycleSection {
+			height: 9vh;
+			width: 6vw;
+			left: 30vw;
+			top: 19vh;
+			background-color: #1e90ff;
+			border-bottom-right-radius: 1vh;
+			padding: 0vh .5vw 0.5vh .5vw;
 		}
 		#mediaCard {
-			height:62vh;
-			width:36vw;
-			top:37vh;
-			left:1vw;
+			height: 61vh;
+			width: 36vw;
+			top: 38vh;
+			left: 1vw;
 		}
-		/*.carousel {
-		    height:83vh;
-			width:61vw;
-			top:16vh;
-			left:38vw;
-		}*/
 		.item {
-		    height:83vh;
-		    width:61vw;
+		    height: 90vh;
+		    width: 61vw;
+			color: black;
+		}
+		.itemPart {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.itemText {
+			background-color: rgba(255, 255, 255, 0.5);
+			border-radius: 1vh;
+			margin: .5vh .5vw .5vh .5vw;
 		}
 		.itemTitle {
-			height:13vh;
+			height: 10vh;
 		}
 		.itemBody {
-			height:40vh;
-			top:13vh;
+			height: 50vh;
+			top: 10vh;
 		}
 		.itemImgDiv {
-			height:30vh;
+			height: 28vh;
+			margin: .5vh .5vw .5vh .5vw;
 		}
 		.itemImg {
-			max-height:100%;
-			max-width:100%;
+			max-height: 100%;
+			max-width: 100%;
 		}
 	</style>
 </head>
@@ -120,43 +151,21 @@
 	<div id="ribbon">
 		<img id="logo" src="images\logo.png">
 	</div>
-	<div id="announcementsCard" class="card carousel slide" data-ride="carousel" data-interval="2000">
-		<!-- indicators (dot nav)
-		<ol class="carousel-indicators">
-			<li data-target="#announcementsCard" data-slide-to="0" class="active"></li>
-			<li data-target="#announcementsCard" data-slide-to="1"></li>
-			<li data-target="#announcementsCard" data-slide-to="2"></li>
-		</ol>	
-		-->
-		<!--wrapper for slides -->
-		<div id="carousel-item-container" class="carousel-inner" role="listbox">
-			<!-- manual items
-			<div class="item active">
-				<img src="images\red.png" alt="red"/>
-			</div>
-			<div class="item">
-				<img src="images\green.png" alt="green"/>
-			</div>
-			<div class="item">
-				<img src="images\blue.png" alt="blue"/>
-			</div>
-			-->
-		</div>
-		<!-- controls (next and prev buttons)
-		<a class="left carousel-control" href="#announcementsCard" role="button" data-slide="prev">
-			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-		</a>
-		<a class="right carousel-control" href="#announcementsCard" role="button" data-slide="next">
-			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-		</a>
-		-->
+	<div id="announcementsCard" class="card carousel slide" data-ride="carousel" data-interval="5000">
+		<div id="carousel-item-container" class="carousel-inner" role="listbox"></div>
 	</div>
-	<div id="dateTimeLetterDayPeriodCard" class="card">
+	<div id="infoCard" class="card">
+		<div id="monthSection" class="section">
+			<span>X</span>
+		</div>
 		<div id="dateSection" class="section">
-			<span>X<br/>X</span>
+			<span>X</span>
 		</div>
 		<div id="timeSection" class="section">
-			<span>X:XX</span>
+			<span>XX:XX</span>
+		</div>
+		<div id="ampmSection" class="section">
+			<span>XX</span>
 		</div>
 		<div id="letterDaySection" class="section">
 			<span>X</span>
@@ -164,18 +173,49 @@
 		<div id="periodSection" class="section">
 			<span>XX</span>
 		</div>
+		<div id="cycleSection" class="section">
+			<span>X</span>
+		</div>
 	</div>
 	<div id="mediaCard" class="card"></div>
 </body>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.textfill.js"></script>
 
 <script type="text/javascript">
+	/*<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.textfill.js">*/
+	/*(function($) {
+	    $.fn.textfill = function(options) {
+	        var fontSize = options.maxFontPixels;
+	        var text = $('span:visible:first', this);
+	        var maxHeight = $(this).height();
+	        var maxWidth = $(this).width();
+	        var textHeight;
+	        var textWidth;
+	        do {
+	            text.css('font-size', fontSize);
+	            textHeight = text.height();
+	            textWidth = text.width();
+	            fontSize = fontSize - 1;
+	        	//console.log("Max height: " + maxHeight + ". Max width: " + maxWidth + ". Text height: " + textHeight + ". Text width: " + textWidth);
+	        } while ((textHeight > maxHeight || textWidth > maxWidth) && fontSize > 3);
+	        return this;
+	    }
+	})(jQuery);*/ //could use this with a better search and higher max pixels
+
 	function resizeElements() {
+		$('#monthSection').textfill({
+			maxFontPixels: 200
+		});
 		$('#dateSection').textfill({
 			maxFontPixels: 200
 		});
 		$('#timeSection').textfill({
+			maxFontPixels: 200
+		});
+		$('#ampmSection').textfill({
 			maxFontPixels: 200
 		});
 		$('#letterDaySection').textfill({
@@ -184,30 +224,17 @@
 		$('#periodSection').textfill({
 			maxFontPixels: 200
 		});
+		$('#cycleSection').textfill({
+			maxFontPixels: 200
+		});
 		$('.itemTitle').textfill({
 			maxFontPixels: 200
 		});
 		$('.itemBody').textfill({
 			maxFontPixels: 200
 		});
-		//$('.itemImg').height($('.itemImgDiv').height);
-		console.log($('.itemImg').height());
-		console.log($('.itemImgDiv').height())
-		/*$('itemImg').each(function(i, item) {
-		    var img_height = $(item).height();
-		    var div_height = $(item).parent().height();
-		    if (img_height < div_height){
-		        var newMargin = (div_height - img_height) / 2 + 'px';
-		        $(item).css({'margin-top':newMargin});
-		    } else if (img_height > div_height){
-		        $(item).css({'width': 'auto', 'height': '100%'});
-		        var img_width = $(item).width();
-		        var div_width = $(item).parent().width();
-		        var newMargin = (div_width - img_width) / 2 + 'px';
-		        $(item).css({'margin-left':newMargin});
-	    	}
-		});*/
 	}
+
 	function updateClock() {
 		var now = new Date();
 		var hour = now.getHours();
@@ -284,95 +311,101 @@
 		if (minute < 10) {
 			minute = '0' + minute;
 		}
-		$('#timeSection').html('<span>' + hour + ':' + minute + ' ' + ampm + '</span>');
+		$('#timeSection').html('<span>' + hour + ':' + minute + '</span>');
+		$('#ampmSection').html('<span>' + ampm + '</span>')
 		var months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-		$('#dateSection').html('<span>' + months[now.getMonth()] + '<br/>' + now.getDate() + '</span>');
+		$('#monthSection').html('<span>' + months[now.getMonth()] + '</span>');
+		$('#dateSection').html('<span>' + now.getDate() + '</span>');
 		$('#periodSection').html('<span>' + period + '</span>');
 		resizeElements();
 		setTimeout(updateClock, 5000);
 	}
+
 	window.addEventListener('resize', resizeElements);
 	updateClock();
 	$('#announcementsCard').carousel();
 	$('#announcementsCard').on('slid.bs.carousel', function() {
 	    resizeElements();
 	});
-	</script>
+</script>
 
-	<script type="text/javascript">
-		//client id = 835795750372-1hej792ghu2omccu5061a2nsrtrjuhh2.apps.googleusercontent.com
-		//client secret = dL5r3yMMjmeHxKNPHAjHbu9f
-		//api key = AIzaSyBt5O0GLMXaSYKphWXikYa9CQ2HcdiKhjw
-		var CLIENT_ID = '835795750372-1hej792ghu2omccu5061a2nsrtrjuhh2.apps.googleusercontent.com';
-		var API_KEY = 'AIzaSyBt5O0GLMXaSYKphWXikYa9CQ2HcdiKhjw';
-		var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
-		var SCOPES = "https://www.googleapis.com/auth/spreadsheets.readonly";
+<script type="text/javascript">
+	//client id = 835795750372-1hej792ghu2omccu5061a2nsrtrjuhh2.apps.googleusercontent.com
+	//client secret = dL5r3yMMjmeHxKNPHAjHbu9f
+	//api key = AIzaSyBt5O0GLMXaSYKphWXikYa9CQ2HcdiKhjw
+	var CLIENT_ID = '835795750372-1hej792ghu2omccu5061a2nsrtrjuhh2.apps.googleusercontent.com';
+	var API_KEY = 'AIzaSyBt5O0GLMXaSYKphWXikYa9CQ2HcdiKhjw';
+	var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
+	var SCOPES = "https://www.googleapis.com/auth/spreadsheets.readonly";
 
-		function handleClientLoad() {
-			gapi.load('client:auth2', initClient);
-		}
+	function handleClientLoad() {
+		gapi.load('client:auth2', initClient);
+	}
 
-		function initClient() {
-			gapi.client.init({
-				apiKey: API_KEY,
-				clientId: CLIENT_ID,
-				discoveryDocs: DISCOVERY_DOCS,
-				scope: SCOPES
-			}).then(function() {
-				pullSheetData();
-			});
-		}
+	function initClient() {
+		gapi.client.init({
+			apiKey: API_KEY,
+			clientId: CLIENT_ID,
+			discoveryDocs: DISCOVERY_DOCS,
+			scope: SCOPES
+		}).then(function() {
+			pullSheetData();
+		});
+	}
 
-		function pullSheetData() {
-			pullLetterDay();
-			pullAnnouncements();
-		}
+	function pullSheetData() {
+		pullLetterDay();
+		pullAnnouncements();
+	}
 
-		var letterDayCell = 'Calendar!C1'
+	var letterDayCell = 'Calendar!C1'
 
-		function pullLetterDay() { //refresh on new day
-			gapi.client.sheets.spreadsheets.values.get({
-				spreadsheetId: '1ovki_EYdu7FC2OZKbxBvnwiKHkePdcamvjXzuXIw4NA',
-				range: letterDayCell,
-			}).then(function(response) {
-				var data = response.result.values;
-				$('#letterDaySection').html('<span>' + data[0][0] + '</span>');
-				resizeElements();
-			});
-		}
+	function pullLetterDay() { //refresh on new day
+		gapi.client.sheets.spreadsheets.values.get({
+			spreadsheetId: '1ovki_EYdu7FC2OZKbxBvnwiKHkePdcamvjXzuXIw4NA',
+			range: letterDayCell,
+		}).then(function(response) {
+			var data = response.result.values;
+			$('#letterDaySection').html('<span>' + data[0][0] + '</span>');
+			resizeElements();
+		});
+	}
 
-		var announcementDataRange = 'Approved Announcements!C:F'
-		var announcementColumn = 0;
-		var titleColumn = 1;
-		var categoryColumn = 2;
-		var imageURLColumn = 3;
+	var announcementDataRange = 'Approved Announcements!C:F'
+	var announcementColumn = 0;
+	var titleColumn = 1;
+	var categoryColumn = 2;
+	var imageURLColumn = 3;
 
-		function pullAnnouncements() { //refresh every so oftern
-			gapi.client.sheets.spreadsheets.values.get({
-				spreadsheetId: '1ovki_EYdu7FC2OZKbxBvnwiKHkePdcamvjXzuXIw4NA',
-				range: announcementDataRange,
-			}).then(function(response) {
-				var data = response.result.values;
-				for (var i = 1; i < data.length; i++) {
-					var element = '';
-					if (i == 1) {
-						element = '<div class="item active">';
-					} else {
-						element = '<div class="item">';
-					}
-					element += '<div class="itemTitle"><span>' + data[i][titleColumn] + '</span></div>';
-					element += '<div class="itemBody"><span>' + data[i][announcementColumn] + '</span></div>';
-					element += '<div class="itemImgDiv"><img class="itemImg" src="' + data[i][imageURLColumn] + '"/></div>';
-					element += '</div>';
-					$('#carousel-item-container').append(element);
+	function pullAnnouncements() { //refresh every so oftern
+		gapi.client.sheets.spreadsheets.values.get({
+			spreadsheetId: '1ovki_EYdu7FC2OZKbxBvnwiKHkePdcamvjXzuXIw4NA',
+			range: announcementDataRange,
+		}).then(function(response) {
+			var data = response.result.values;
+			for (var i = 1; i < data.length; i++) {
+				var element = '';
+				if (i == 1) {
+					element = '<div class="item active">';
+				} else {
+					element = '<div class="item">';
 				}
-				resizeElements();
-			});
-		}
-	</script>
+				if (!data[i][imageURLColumn]) {
+					data[i][imageURLColumn] = 'images\\default-announcement-image.png';
+				}
+				//data[i][announcementColumn] = data[i][announcementColumn].replace(new RegExp('\n', 'g'), " ");
+				element += '<div class="itemText"><div class="itemPart itemTitle"><span>' + data[i][titleColumn] + '</span></div>';
+				element += '<div class="itemPart itemBody"><span>' + data[i][announcementColumn] + '</span></div></div>';
+				element += '<div class="itemPart itemImgDiv"><img class="itemImg" src="' + data[i][imageURLColumn] + '"/></div>';
+				element += '</div>';
+				$('#carousel-item-container').append(element);
+			}
+			resizeElements();
+		});
+	}
+</script>
 
-	<script
-		async defer src="https://apis.google.com/js/api.js"
-		onload="this.onload=function(){};handleClientLoad()"
-		onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
-</html>
+<script
+	async defer src="https://apis.google.com/js/api.js"
+	onload="this.onload=function(){};handleClientLoad()"
+	onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
