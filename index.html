@@ -97,7 +97,7 @@
 			left: 30vw;
 			top: 9vh;
 			background-color: #1e90ff;
-			padding: 0vh .5vw 0.5vh .5vw;
+			padding: 0vh .5vw 0vh .5vw;
 		}
 		#cycleSection {
 			height: 9vh;
@@ -106,7 +106,7 @@
 			top: 19vh;
 			background-color: #1e90ff;
 			border-bottom-right-radius: 1vh;
-			padding: 0vh .5vw 0.5vh .5vw;
+			padding: 0vh .5vw .5vh .5vw;
 		}
 		#mediaCard {
 			height: 61vh;
@@ -137,7 +137,7 @@
 			top: 10vh;
 		}
 		.itemImgDiv {
-			height: 28vh;
+			height: 28.5vh;
 			margin: .5vh .5vw .5vh .5vw;
 		}
 		.itemImg {
@@ -156,25 +156,25 @@
 	</div>
 	<div id="infoCard" class="card">
 		<div id="monthSection" class="section">
-			<span>X</span>
+			<span>---</span>
 		</div>
 		<div id="dateSection" class="section">
-			<span>X</span>
+			<span>--</span>
 		</div>
 		<div id="timeSection" class="section">
-			<span>XX:XX</span>
+			<span>--:--</span>
 		</div>
 		<div id="ampmSection" class="section">
-			<span>XX</span>
+			<span>--</span>
 		</div>
 		<div id="letterDaySection" class="section">
-			<span>X</span>
+			<span>-</span>
 		</div>
 		<div id="periodSection" class="section">
-			<span>XX</span>
+			<span>--</span>
 		</div>
 		<div id="cycleSection" class="section">
-			<span>X</span>
+			<span>-</span>
 		</div>
 	</div>
 	<div id="mediaCard" class="card"></div>
@@ -185,26 +185,6 @@
 <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.textfill.js"></script>
 
 <script type="text/javascript">
-	/*<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.textfill.js">*/
-	/*(function($) {
-	    $.fn.textfill = function(options) {
-	        var fontSize = options.maxFontPixels;
-	        var text = $('span:visible:first', this);
-	        var maxHeight = $(this).height();
-	        var maxWidth = $(this).width();
-	        var textHeight;
-	        var textWidth;
-	        do {
-	            text.css('font-size', fontSize);
-	            textHeight = text.height();
-	            textWidth = text.width();
-	            fontSize = fontSize - 1;
-	        	//console.log("Max height: " + maxHeight + ". Max width: " + maxWidth + ". Text height: " + textHeight + ". Text width: " + textWidth);
-	        } while ((textHeight > maxHeight || textWidth > maxWidth) && fontSize > 3);
-	        return this;
-	    }
-	})(jQuery);*/ //could use this with a better search and higher max pixels
-
 	function resizeElements() {
 		$('#monthSection').textfill({
 			maxFontPixels: 200
@@ -330,9 +310,7 @@
 </script>
 
 <script type="text/javascript">
-	//client id = 835795750372-1hej792ghu2omccu5061a2nsrtrjuhh2.apps.googleusercontent.com
 	//client secret = dL5r3yMMjmeHxKNPHAjHbu9f
-	//api key = AIzaSyBt5O0GLMXaSYKphWXikYa9CQ2HcdiKhjw
 	var CLIENT_ID = '835795750372-1hej792ghu2omccu5061a2nsrtrjuhh2.apps.googleusercontent.com';
 	var API_KEY = 'AIzaSyBt5O0GLMXaSYKphWXikYa9CQ2HcdiKhjw';
 	var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
@@ -374,10 +352,9 @@
 	var announcementDataRange = 'Approved Announcements!C:F'
 	var announcementColumn = 0;
 	var titleColumn = 1;
-	var categoryColumn = 2;
-	var imageURLColumn = 3;
+	var imageURLColumn = 2;
 
-	function pullAnnouncements() { //refresh every so oftern
+	function pullAnnouncements() { //refresh every so often
 		gapi.client.sheets.spreadsheets.values.get({
 			spreadsheetId: '1ovki_EYdu7FC2OZKbxBvnwiKHkePdcamvjXzuXIw4NA',
 			range: announcementDataRange,
@@ -393,7 +370,6 @@
 				if (!data[i][imageURLColumn]) {
 					data[i][imageURLColumn] = 'images\\default-announcement-image.png';
 				}
-				//data[i][announcementColumn] = data[i][announcementColumn].replace(new RegExp('\n', 'g'), " ");
 				element += '<div class="itemText"><div class="itemPart itemTitle"><span>' + data[i][titleColumn] + '</span></div>';
 				element += '<div class="itemPart itemBody"><span>' + data[i][announcementColumn] + '</span></div></div>';
 				element += '<div class="itemPart itemImgDiv"><img class="itemImg" src="' + data[i][imageURLColumn] + '"/></div>';
