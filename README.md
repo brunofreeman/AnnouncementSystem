@@ -9,3 +9,5 @@ open in browser:
 ```
 http://localhost:8000/
 ```
+## License
+Licensed under the [MIT License](LICENSE).
