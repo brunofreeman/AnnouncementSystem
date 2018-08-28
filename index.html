@@ -35,13 +35,13 @@
 			margin-left: auto;
 			margin-right: auto;
 		}
-		#announcementsCard {
+		#announcements-card {
 			height: 90vh;
 			width: 61vw;
 			top: 9vh;
 			left: 38vw;
 		}
-		#infoCard {
+		#info-card {
 			width: 36vw;
 			top: 9vh;
 			left: 1vw;
@@ -53,14 +53,14 @@
 			align-items: center;
 			justify-content: center;
 		}
-		#monthSection {
+		#month-section {
 			height: 10vh;
 			width: 10vw;
 			background-color: #e53935;
 			border-top-left-radius: 1vh;
 			padding: .5vh .5vw 0vh .5vw;
 		}
-		#dateSection {
+		#date-section {
 			height: 18vh;
 			width: 10vw;
 			top: 10vh;
@@ -68,14 +68,14 @@
 			border-bottom-left-radius: 1vh;
 			padding: 0vh .5vw .5vh .5vw;
 		}
-		#timeSection {
+		#time-section {
 			height: 18vh;
 			width: 20vw;
 			left: 10vw;
 			background-color: #ff1744;
 			padding: .5vh .5vw 0vh .5vw;
 		}
-		#ampmSection {
+		#ampm-section {
 			height: 10vh;
 			width: 20vw;
 			top: 18vh;
@@ -83,7 +83,7 @@
 			background-color: #ff1744;
 			padding: 0vh .5vw 0.5vh .5vw;
 		}
-		#letterDaySection {
+		#letter-day-section {
 			height: 9vh;
 			width: 6vw;
 			left: 30vw;
@@ -91,7 +91,7 @@
 			border-top-right-radius: 1vh;
 			padding: .5vh .5vw 0vh .5vw;
 		}
-		#periodSection {
+		#period-section {
 			height: 10vh;
 			width: 6vw;
 			left: 30vw;
@@ -99,7 +99,7 @@
 			background-color: #1e90ff;
 			padding: 0vh .5vw 0vh .5vw;
 		}
-		#cycleSection {
+		#cycle-section {
 			height: 9vh;
 			width: 6vw;
 			left: 30vw;
@@ -108,7 +108,7 @@
 			border-bottom-right-radius: 1vh;
 			padding: 0vh .5vw .5vh .5vw;
 		}
-		#mediaCard {
+		#media-card {
 			height: 61vh;
 			width: 36vw;
 			top: 38vh;
@@ -119,28 +119,28 @@
 		    width: 61vw;
 			color: black;
 		}
-		.itemPart {
+		.announcement-item-part {
 			display: flex;
 			align-items: center;
 			justify-content: center;
 		}
-		.itemText {
+		.announcement-item-text {
 			background-color: rgba(255, 255, 255, 0.5);
 			border-radius: 1vh;
 			margin: .5vh .5vw .5vh .5vw;
 		}
-		.itemTitle {
+		.announcement-item-title {
 			height: 10vh;
 		}
-		.itemBody {
+		.announcement-item-body {
 			height: 50vh;
 			top: 10vh;
 		}
-		.itemImgDiv {
+		.announcement-item-img-div {
 			height: 28.5vh;
 			margin: .5vh .5vw .5vh .5vw;
 		}
-		.itemImg {
+		.announcement-item-img {
 			max-height: 100%;
 			max-width: 100%;
 		}
@@ -151,33 +151,51 @@
 	<div id="ribbon">
 		<img id="logo" src="images\logo.png">
 	</div>
-	<div id="announcementsCard" class="card carousel slide" data-ride="carousel" data-interval="5000">
+	<div id="announcements-card" class="card carousel slide" data-ride="carousel" data-interval="5000">
 		<div id="carousel-item-container" class="carousel-inner" role="listbox"></div>
 	</div>
-	<div id="infoCard" class="card">
-		<div id="monthSection" class="section">
+	<div id="info-card" class="card">
+		<div id="month-section" class="section">
 			<span>---</span>
 		</div>
-		<div id="dateSection" class="section">
+		<div id="date-section" class="section">
 			<span>--</span>
 		</div>
-		<div id="timeSection" class="section">
+		<div id="time-section" class="section">
 			<span>--:--</span>
 		</div>
-		<div id="ampmSection" class="section">
+		<div id="ampm-section" class="section">
 			<span>--</span>
 		</div>
-		<div id="letterDaySection" class="section">
+		<div id="letter-day-section" class="section">
 			<span>-</span>
 		</div>
-		<div id="periodSection" class="section">
+		<div id="period-section" class="section">
 			<span>--</span>
 		</div>
-		<div id="cycleSection" class="section">
+		<div id="cycle-section" class="section">
 			<span>-</span>
 		</div>
 	</div>
-	<div id="mediaCard" class="card"></div>
+	<div id="media-card" class="card">
+		<!--<div id="carousel-item-container-2" class="carousel-inner" role="listbox">
+			<div class="item active">
+				<div class="itemPart slideshowImgDiv">
+					<img class="itemImg" src="images\slideshow-images\1.jpg"/>
+				</div>
+			</div>
+			<div class="item">
+				<div class="itemPart slideshowImgDiv">
+					<img class="itemImg" src="images\slideshow-images\2.jpg"/>
+				</div>
+			</div>
+			<div class="item">
+				<div class="itemPart slideshowImgDiv">
+					<img class="itemImg" src="images\slideshow-images\3.jpg"/>
+				</div>
+			</div>
+		</div>-->
+	</div>
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -186,31 +204,31 @@
 
 <script type="text/javascript">
 	function resizeElements() {
-		$('#monthSection').textfill({
+		$('#month-section').textfill({
 			maxFontPixels: 200
 		});
-		$('#dateSection').textfill({
+		$('#date-section').textfill({
 			maxFontPixels: 200
 		});
-		$('#timeSection').textfill({
+		$('#time-section').textfill({
 			maxFontPixels: 200
 		});
-		$('#ampmSection').textfill({
+		$('#ampm-section').textfill({
 			maxFontPixels: 200
 		});
-		$('#letterDaySection').textfill({
+		$('#letter-day-section').textfill({
 			maxFontPixels: 200
 		});
-		$('#periodSection').textfill({
+		$('#period-section').textfill({
 			maxFontPixels: 200
 		});
-		$('#cycleSection').textfill({
+		$('#cycle-section').textfill({
 			maxFontPixels: 200
 		});
-		$('.itemTitle').textfill({
+		$('.announcement-item-title').textfill({
 			maxFontPixels: 200
 		});
-		$('.itemBody').textfill({
+		$('.announcement-item-body').textfill({
 			maxFontPixels: 200
 		});
 	}
@@ -291,20 +309,20 @@
 		if (minute < 10) {
 			minute = '0' + minute;
 		}
-		$('#timeSection').html('<span>' + hour + ':' + minute + '</span>');
-		$('#ampmSection').html('<span>' + ampm + '</span>')
+		$('#time-section').html('<span>' + hour + ':' + minute + '</span>');
+		$('#ampm-section').html('<span>' + ampm + '</span>')
 		var months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-		$('#monthSection').html('<span>' + months[now.getMonth()] + '</span>');
-		$('#dateSection').html('<span>' + now.getDate() + '</span>');
-		$('#periodSection').html('<span>' + period + '</span>');
+		$('#month-section').html('<span>' + months[now.getMonth()] + '</span>');
+		$('#date-section').html('<span>' + now.getDate() + '</span>');
+		$('#period-section').html('<span>' + period + '</span>');
 		resizeElements();
 		setTimeout(updateClock, 5000);
 	}
 
 	window.addEventListener('resize', resizeElements);
 	updateClock();
-	$('#announcementsCard').carousel();
-	$('#announcementsCard').on('slid.bs.carousel', function() {
+	$('#announcements-card').carousel();
+	$('#announcements-card').on('slid.bs.carousel', function() {
 	    resizeElements();
 	});
 </script>
@@ -344,7 +362,7 @@
 			range: letterDayCell,
 		}).then(function(response) {
 			var data = response.result.values;
-			$('#letterDaySection').html('<span>' + data[0][0] + '</span>');
+			$('#letter-day-section').html('<span>' + data[0][0] + '</span>');
 			resizeElements();
 		});
 	}
@@ -370,9 +388,9 @@
 				if (!data[i][imageURLColumn]) {
 					data[i][imageURLColumn] = 'images\\default-announcement-image.png';
 				}
-				element += '<div class="itemText"><div class="itemPart itemTitle"><span>' + data[i][titleColumn] + '</span></div>';
-				element += '<div class="itemPart itemBody"><span>' + data[i][announcementColumn] + '</span></div></div>';
-				element += '<div class="itemPart itemImgDiv"><img class="itemImg" src="' + data[i][imageURLColumn] + '"/></div>';
+				element += '<div class="announcement-item-text"><div class="announcement-item-part announcement-item-title"><span>' + data[i][titleColumn] + '</span></div>';
+				element += '<div class="announcement-item-part announcement-item-body"><span>' + data[i][announcementColumn] + '</span></div></div>';
+				element += '<div class="announcement-item-part announcement-item-img-div"><img class="announcement-item-img" src="' + data[i][imageURLColumn] + '"/></div>';
 				element += '</div>';
 				$('#carousel-item-container').append(element);
 			}

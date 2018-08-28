@@ -73,9 +73,9 @@ function updateLunch() { //parses the lunch from the school's website
   }
   var todayString = dateToString(today); //today's date in the format mm/dd/yyyy
   var lunchImg = "images\\lunch-announcement-image.png"; //sets the image url
-  var lunchData = [[todayString, todayString, menu, "Today's Lunch", "Lunch", lunchImg]]; //creates a array of the lunch data 
+  var lunchData = [[todayString, todayString, menu, "Today's Lunch", lunchImg]]; //creates a array of the lunch data 
   approvedAnnouncementsSheet.insertRowBefore(firstDataRowIndex); //inserts a row after the header row
-  var lunchRow = approvedAnnouncementsSheet.getRange(firstDataRowIndex, 1, 1, endAnnouncementDataColumn- startAnnouncementDataColumn + 1); //gets that row as a range
+  var lunchRow = approvedAnnouncementsSheet.getRange(firstDataRowIndex, 1, 1, endAnnouncementDataColumn - startAnnouncementDataColumn + 1); //gets that row as a range
   lunchRow.setValues(lunchData); //sets the row to contain the lunch data
 }
   
