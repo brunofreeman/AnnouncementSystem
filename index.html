@@ -192,23 +192,7 @@
 		</div>
 	</div>
 	<div id="slideshow-card" class="card carousel slide" data-ride="carousel" data-interval="3000">
-		<div id="media-carousel-item-container" class="carousel-inner" role="listbox">
-			<div class="item active">
-				<div class="slideshow-div">
-					<img class="slideshow-img" src="images\slideshow-images\1.jpg"/>
-				</div>
-			</div>
-			<div class="item">
-				<div class="slideshow-div">
-					<img class="slideshow-img" src="images\slideshow-images\2.jpg"/>
-				</div>
-			</div>
-			<div class="item">
-				<div class="slideshow-div">
-					<img class="slideshow-img" src="images\slideshow-images\3.jpg"/>
-				</div>
-			</div>
-		</div>
+		<div id="media-carousel-item-container" class="carousel-inner" role="listbox"></div>
 	</div>
 </body>
 
@@ -339,6 +323,26 @@
 	$('#announcements-card').on('slid.bs.carousel', function() {
 	    resizeElements();
 	});
+
+	var dir = 'images\\slideshow-images\\';
+
+	$.ajax({
+	    url : dir,
+	    success: function(data) {
+	        $(data).find("a").attr("href", function (i, file) {
+	            if (file.match(/\.(jpe?g|png|gif)$/)) {
+	            	var element = '';
+	            	if (i == 0) {
+	            		element += '<div class="item active">';
+	            	} else {
+	            		element += '<div class="item">';
+	            	}
+	            	element += '<div class="slideshow-div"><img class="slideshow-img" src="' + dir + file + '"></div></div>';
+	                $("#media-carousel-item-container").append(element);
+	            } 
+	        });
+	    }
+	});
 </script>
 
 <script type="text/javascript">
@@ -404,7 +408,7 @@
 				}
 				element += '<div class="announcement-item-text"><div class="announcement-item-part announcement-item-title"><span>' + data[i][titleColumn] + '</span></div>';
 				element += '<div class="announcement-item-part announcement-item-body"><span>' + data[i][announcementColumn] + '</span></div></div>';
-				element += '<div class="announcement-item-part announcement-item-img-div"><img class="announcement-item-img" src="' + data[i][imageURLColumn] + '"/></div>';
+				element += '<div class="announcement-item-part announcement-item-img-div"><img class="announcement-item-img" src="' + data[i][imageURLColumn] + '"></div>';
 				element += '</div>';
 				$('#annoucement-carousel-item-container').append(element);
 			}
