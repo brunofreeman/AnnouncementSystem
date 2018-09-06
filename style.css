@@ -1,0 +1,154 @@
+* {
+	text-align: center;
+	font-weight: bold;
+	font-family: sans-serif;
+}
+body {
+	background-image: url("images\\background.png");
+	background-size: 100vw 100vh;
+	margin: 0%;
+}
+span {
+	position: relative;
+}
+#ribbon {
+	position: absolute;
+	height: 8vh;
+	width: 100vw;
+	background-color: #b71c1c;
+}
+#logo {
+	height: 8vh;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+.card {
+	position: absolute;
+	border-radius: 1vh;
+	background-color: rgba(255, 255, 255, 0.25);
+}
+#announcements-card {
+	height: 90vh;
+	width: 61vw;
+	top: 9vh;
+	left: 38vw;
+}
+.announcement-item {
+    height: 90vh;
+    width: 61vw;
+	color: black;
+}
+.announcement-item-part {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.announcement-item-text {
+	background-color: rgba(255, 255, 255, 0.5);
+	border-radius: 1vh;
+	margin: .5vh .5vw .5vh .5vw;
+}
+.announcement-item-title {
+	height: 10vh;
+	text-decoration: underline;
+}
+.announcement-item-body {
+	height: 50vh;
+	top: 10vh;
+}
+.announcement-item-img-div {
+	height: 28.5vh;
+	margin: .5vh .5vw .5vh .5vw;
+}
+.announcement-item-img {
+	border-radius: 1vh;
+	max-height: 100%;
+	max-width: 100%;
+}
+#info-card {
+	width: 36vw;
+	top: 9vh;
+	left: 1vw;
+}
+.section {
+	color: white;
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+#month-section {
+	height: 10vh;
+	width: 10vw;
+	background-color: #e53935;
+	border-top-left-radius: 1vh;
+	padding: .5vh .5vw 0vh .5vw;
+}
+#date-section {
+	height: 18vh;
+	width: 10vw;
+	top: 10vh;
+	background-color: #e53935;
+	border-bottom-left-radius: 1vh;
+	padding: 0vh .5vw .5vh .5vw;
+}
+#time-section {
+	height: 18vh;
+	width: 20vw;
+	left: 10vw;
+	background-color: #ff1744;
+	padding: .5vh .5vw 0vh .5vw;
+}
+#ampm-section {
+	height: 10vh;
+	width: 20vw;
+	top: 18vh;
+	left: 10vw;
+	background-color: #ff1744;
+	padding: 0vh .5vw 0.5vh .5vw;
+}
+#letter-day-section {
+	height: 9vh;
+	width: 6vw;
+	left: 30vw;
+	background-color: #1e90ff;
+	border-top-right-radius: 1vh;
+	padding: .5vh .5vw 0vh .5vw;
+}
+#period-section {
+	height: 10vh;
+	width: 6vw;
+	left: 30vw;
+	top: 9vh;
+	background-color: #1e90ff;
+	padding: 0vh .5vw 0vh .5vw;
+}
+#cycle-section {
+	height: 9vh;
+	width: 6vw;
+	left: 30vw;
+	top: 19vh;
+	background-color: #1e90ff;
+	border-bottom-right-radius: 1vh;
+	padding: 0vh .5vw .5vh .5vw;
+}
+#slideshow-card {
+	height: 61vh;
+	width: 36vw;
+	top: 38vh;
+	left: 1vw;
+}
+.slideshow-div {
+	height: 61vh;
+	width: 36vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: .5vh .5vw .5vh .5vw;
+}
+.slideshow-img {
+	border-radius: 1vh;
+	max-height: 100%;
+	max-width: 100%;
+}
