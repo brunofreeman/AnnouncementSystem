@@ -144,15 +144,15 @@ function getLetterDay() {
   sheet.getRange("A1").setValue("-");
   if (events) {
     for (var i = 0; i < events.length; i++) {
-      switch (events[i].getTitle()) {
-        case "A Day":
-        case "B Day":
-        case "C Day":
-        case "D Day":
-        case "E Day":
-        case "F Day":
+      switch (events[i].getTitle().toUpperCase()) {
+        case "A DAY":
+        case "B DAY":
+        case "C DAY":
+        case "D DAY":
+        case "E DAY":
+        case "F DAY":
         	var title = events[i].getTitle();
-          	sheet.getRange("A1").setValue(title.substring(0, title.indexOf('Day') - 1));
+          	sheet.getRange("A1").setValue(title.substring(0, title.indexOf("DAY") - 1));
           
       }   
     }  
