@@ -144,7 +144,8 @@ function getLetterDay() {
   sheet.getRange("A1").setValue("-");
   if (events) {
     for (var i = 0; i < events.length; i++) {
-      switch (events[i].getTitle().toUpperCase()) {
+      var event = events[i].getTitle().toUpperCase().trim();
+      switch (event) {
         case "A DAY":
         case "B DAY":
         case "C DAY":
@@ -152,7 +153,7 @@ function getLetterDay() {
         case "E DAY":
         case "F DAY":
         	var title = events[i].getTitle();
-          	sheet.getRange("A1").setValue(title.substring(0, title.indexOf("DAY") - 1));
+          	sheet.getRange("A1").setValue(event.substring(0, event.indexOf("DAY") - 1));
           
       }   
     }  
