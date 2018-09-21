@@ -26,7 +26,7 @@ function pullSheetData() {
 
 var letterDayCell = 'Calendar!A1'
 
-function pullLetterDay() { //refresh on new day
+function pullLetterDay() {
 	gapi.client.sheets.spreadsheets.values.get({
 		spreadsheetId: '1ovki_EYdu7FC2OZKbxBvnwiKHkePdcamvjXzuXIw4NA',
 		range: letterDayCell,
@@ -42,7 +42,7 @@ var announcementColumn = 0;
 var titleColumn = 1;
 var imageURLColumn = 2;
 
-function pullAnnouncements() { //refresh every so often
+function pullAnnouncements() {
 	gapi.client.sheets.spreadsheets.values.get({
 		spreadsheetId: '1ovki_EYdu7FC2OZKbxBvnwiKHkePdcamvjXzuXIw4NA',
 		range: announcementDataRange,
@@ -67,3 +67,25 @@ function pullAnnouncements() { //refresh every so often
 		resizeElements();
 	});
 }
+
+function refreshAnnouncements() {
+	$('#annoucement-carousel-item-container').empty();
+	pullAnnouncements();
+}
+
+setTimeout(refreshAnnouncements, 1800000);
+
+var now = new Date();
+var tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate() + 1);
+var millisecondsToTommorow = new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate(), 1, 0, 0, 0) - now;
+
+function refreshLetterDay() {
+	pullLetterDay();
+	now = new Date();
+	tomorrow = new Date();
+	tomorrow.setDate(tomorrow.getDate() + 1);
+	millisecondsToTommorow = new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate(), 1, 0, 0, 0) - now;
+}
+
+setTimeout(refreshLetterDay, millisecondsToTommorow);
