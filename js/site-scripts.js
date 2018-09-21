@@ -51,6 +51,7 @@ function updateClock() {
 			} else {
 				period = 'P2';
 			}
+			break;
 		case 10:
 			if (minute >= 44) {
 				period = 'P5';
