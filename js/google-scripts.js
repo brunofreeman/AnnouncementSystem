@@ -73,7 +73,7 @@ function refreshAnnouncements() {
 	pullAnnouncements();
 }
 
-setTimeout(refreshAnnouncements, 1800000);
+setInterval(refreshAnnouncements, 1800000);
 
 var now = new Date();
 var tomorrow = new Date();
@@ -86,6 +86,7 @@ function refreshLetterDay() {
 	tomorrow = new Date();
 	tomorrow.setDate(tomorrow.getDate() + 1);
 	millisecondsToTommorow = new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate(), 1, 0, 0, 0) - now;
+	setTimeout(refreshLetterDay, millisecondsToTommorow);
 }
 
 setTimeout(refreshLetterDay, millisecondsToTommorow);
