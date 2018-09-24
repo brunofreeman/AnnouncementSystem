@@ -78,7 +78,7 @@ setInterval(refreshAnnouncements, 1800000);
 var now = new Date();
 var tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
-var millisecondsToTommorow = new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate(), 1, 0, 0, 0) - now;
+var millisecondsToTommorow = new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate(), 1, 30, 0, 0) - now;
 
 function refreshLetterDay() {
 	pullLetterDay();
