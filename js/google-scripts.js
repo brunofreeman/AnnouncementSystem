@@ -63,7 +63,6 @@ function pullAnnouncements() {
 			element += '<div class="announcement-item-part announcement-item-img-div"><img class="announcement-item-img" src="' + data[i][imageURLColumn] + '"></div>';
 			element += '</div>';
 			$('#annoucement-carousel-item-container').append(element);
-			console.log(i);
 		}
 		resizeElements();
 	});
