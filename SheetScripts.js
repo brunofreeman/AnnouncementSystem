@@ -60,7 +60,8 @@ function updateLunch() { //parses the lunch from the school's website
   var html = request.getContentText(); //gets the html text of the lunch webpage
   var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; //a list of the months in order
   var monthName = monthNames[today.getMonth()]; //based on todays month [0-11], get the month name
-  html = html.substring(html.indexOf(monthName));
+  var nextMonthName = monthNames[(today.getMonth() + 1) % 12];
+  html = html.substring(html.indexOf(monthName), html.indexOf(nextMonthName));
   var startStr = "<p>" + dayNum + "<\/p>"; //forms the start of today's menu
   var endStr = "<br \/><\/p>"; //today's menu ends in this
   var startIndex = html.indexOf(startStr); //finds where the start is
