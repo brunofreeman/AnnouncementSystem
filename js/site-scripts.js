@@ -35,6 +35,15 @@ function updateClock() {
 	var ampm = 'AM';
 	var period = 'X';
 	switch(hour) {
+		case 0:
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+		case 5:
+		case 6:
+			period = 'BS';
+			break;
 		case 7:
 			period = 'HR';
 			break;

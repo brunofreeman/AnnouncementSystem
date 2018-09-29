@@ -16,6 +16,7 @@ var firstDataRowIndex = 2; //the first non-title row index
 var approvedStartDateColumnIndex = 1; //the column index of the approved annoucements end date column
 var approvedEndDateColumnIndex = 2; //the column index of the approved annoucements end date column   
 var today = new Date(); //gets the current date and time
+var lunchTitle = "Today's Lunch";
 
 function onNewDay() { //runs every day between midnight and 1am
   updateLunch(); //function call
@@ -39,7 +40,7 @@ function deleteExpiredAnnouncements() { //deletes all expires announcements on t
 
 function getFutureAnnoucements() { //sends announcements from the future sheet to the normal approved sheet if their start date is today
   for (var rowIndex = futureApprovedAnnouncementsSheet.getLastRow(); rowIndex >= firstDataRowIndex; rowIndex--) { //starts at the last row of future approved announcements and works its way to the first
-    var currentStartDateCell = futureApprovedAnnouncementsSheet.getRange(rowIndex, approvedStartDateColumnIndex,1, 1); //gets the cell with the start date for the current row
+    var currentStartDateCell = futureApprovedAnnouncementsSheet.getRange(rowIndex, approvedStartDateColumnIndex, 1, 1); //gets the cell with the start date for the current row
     var currentStartDateCellValue = currentStartDateCell.getValue(); //gets the above cell's value
     var currentStartDate = new Date(currentStartDateCellValue); //makes a new Date object with that value
     if (today.getFullYear() > currentStartDate.getFullYear() || 
@@ -74,10 +75,20 @@ function updateLunch() { //parses the lunch from the school's website
   }
   var todayString = dateToString(today); //today's date in the format mm/dd/yyyy
   var lunchImg = "images\\lunch-announcement-image.png"; //sets the image url
-  var lunchData = [[todayString, todayString, menu, "Today's Lunch", lunchImg]]; //creates a array of the lunch data 
+  var lunchData = [[todayString, todayString, menu, lunchTitle, lunchImg]]; //creates a array of the lunch data 
   approvedAnnouncementsSheet.insertRowBefore(firstDataRowIndex); //inserts a row after the header row
   var lunchRow = approvedAnnouncementsSheet.getRange(firstDataRowIndex, 1, 1, endAnnouncementDataColumn - startAnnouncementDataColumn + 1); //gets that row as a range
   lunchRow.setValues(lunchData); //sets the row to contain the lunch data
+}
+
+function deleteLunch() {
+	for (var rowIndex = approvedAnnouncementsSheet.getLastRow(); rowIndex >= firstDataRowIndex; rowIndex--) {
+		var titleColumn = 4;
+	    var title = approvedAnnouncementsSheet.getRange(rowIndex, titleColumn, 1, 1).getValue();
+	    if (title === lunchTitle) {
+	    	approvedAnnouncementsSheet.deleteRow(rowIndex);
+	    }
+	}
 }
   
 function onEdit() { //set as the trigger to an edit
