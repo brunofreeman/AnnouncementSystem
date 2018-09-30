@@ -23,6 +23,7 @@ function onNewDay() { //runs every day between midnight and 1am
   deleteExpiredAnnouncements(); //function call
   getFutureAnnoucements(); //function call
   getLetterDay();
+  cleanUpAnnouncements();
 }
 
 function deleteExpiredAnnouncements() { //deletes all expires announcements on the approved sheet
@@ -82,13 +83,16 @@ function updateLunch() { //parses the lunch from the school's website
 }
 
 function deleteLunch() {
-	for (var rowIndex = approvedAnnouncementsSheet.getLastRow(); rowIndex >= firstDataRowIndex; rowIndex--) {
-		var titleColumn = 4;
-	    var title = approvedAnnouncementsSheet.getRange(rowIndex, titleColumn, 1, 1).getValue();
-	    if (title === lunchTitle) {
-	    	approvedAnnouncementsSheet.deleteRow(rowIndex);
-	    }
-	}
+  if (approvedAnnouncementsSheet.getLastRow() <= 2) {
+    addNoAnnouncements();
+  }  
+  for (var rowIndex = approvedAnnouncementsSheet.getLastRow(); rowIndex >= firstDataRowIndex; rowIndex--) {
+    var titleColumn = 4;
+    var title = approvedAnnouncementsSheet.getRange(rowIndex, titleColumn, 1, 1).getValue();
+    if (title === lunchTitle) {
+      approvedAnnouncementsSheet.deleteRow(rowIndex);
+    }
+  }
 }
   
 function onEdit() { //set as the trigger to an edit
@@ -140,6 +144,33 @@ function onFormSubmit() { //set as the trigger to a form submission
     MailApp.sendEmail(adminEmails[i], subject, message); //sends an email to the admin
   }
 }
+
+function cleanUpAnnouncements() {
+  if (approvedAnnouncementsSheet.getLastRow() > 2) { //other announcements
+    if (approvedAnnouncementsSheet.getRange(2, 3, 1, 1).getValue() === "No lunch today!") { //if there is no lunch and other announcements, delete lunch
+      deleteLunch();
+    } else { //if there is lunch and other announcements, delete lunch after 7th period
+      var date = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 50, 0, 0);
+      ScriptApp.newTrigger("deleteLunch").timeBased().at(date);
+    }
+  } else { //only lunch
+    if (approvedAnnouncementsSheet.getRange(2, 3, 1, 1).getValue() === "No lunch today!") { //if only announcement is lunch and there is no lunch, no announcements
+      addNoAnnouncements();
+      deleteLunch();
+    } else { //if only announcement is lunch, delete after 7th and no announcements
+      var date = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 50, 0, 0);
+      ScriptApp.newTrigger("deleteLunch").timeBased().at(date);
+    }
+  }
+}
+
+function addNoAnnouncements() {
+  var todayString = dateToString(today); //today's date in the format mm/dd/yyyy
+  var data = [[todayString, todayString, "There are currently no announcements!", "No Announcements"]];
+  approvedAnnouncementsSheet.insertRowBefore(firstDataRowIndex); //inserts a row after the header row
+  var row = approvedAnnouncementsSheet.getRange(firstDataRowIndex, 1, 1, endAnnouncementDataColumn - startAnnouncementDataColumn); //gets that row as a range
+  row.setValues(data);
+}  
 
 function dateToString(date) { //takes in a Date object and returns a string in the form mm/dd/yyyy
   return (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear(); //returns the string
