@@ -63,13 +63,17 @@ function updateLunch() { //parses the lunch from the school's website
   var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; //a list of the months in order
   var monthName = monthNames[today.getMonth()]; //based on todays month [0-11], get the month name
   var nextMonthName = monthNames[(today.getMonth() + 1) % 12];
-  html = html.substring(html.indexOf(monthName), html.indexOf(nextMonthName));
+  if (html.indexOf(nextMonthName) === -1) {
+    html = html.substring(html.indexOf(monthName));
+  } else {  
+    html = html.substring(html.indexOf(monthName), html.indexOf(nextMonthName));
+  }  
   var startStr = "<p>" + dayNum + "<\/p>"; //forms the start of today's menu
   var endStr = "<br \/><\/p>"; //today's menu ends in this
   var startIndex = html.indexOf(startStr); //finds where the start is
   var endIndex = html.indexOf(endStr, startIndex) + endStr.length; //finds the end
   var menu = html.substring(startIndex + startStr.length, endIndex); //gets the menu from all of the webpage text
-  if (startIndex === -1 || menu.indexOf("Superintendents<br />Conference Day") != -1 || menu.indexOf("NO SCHOOL") != -1 || menu.indexOf(" <br \/><br \/><br \/><br \/><br \/><br \/><br \/><br \/>") != -1) { //if the menu wasn't found or it's invalid
+  if (startIndex === -1 || menu.indexOf("Superintendents<br />Conference Day") != -1 || menu.indexOf("NO SCHOOL") != -1 || menu.indexOf(" <br \/><br \/><br \/><br \/><br \/><br \/><br \/><br \/>") != -1) { //if the menu wasn't found or it's invalid
     menu = "No lunch today!"; //set to default string
   } else { //otherwise, trim off unnecessary tags
     menu = menu.substring(18, menu.length - 4); //trim
@@ -151,7 +155,7 @@ function cleanUpAnnouncements() {
       deleteLunch();
     } else { //if there is lunch and other announcements, delete lunch after 7th period
       var date = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 50, 0, 0);
-      ScriptApp.newTrigger("deleteLunch").timeBased().at(date);
+      ScriptApp.newTrigger("deleteLunch").timeBased().at(date).create();
     }
   } else { //only lunch
     if (approvedAnnouncementsSheet.getRange(2, 3, 1, 1).getValue() === "No lunch today!") { //if only announcement is lunch and there is no lunch, no announcements
@@ -159,7 +163,7 @@ function cleanUpAnnouncements() {
       deleteLunch();
     } else { //if only announcement is lunch, delete after 7th and no announcements
       var date = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 50, 0, 0);
-      ScriptApp.newTrigger("deleteLunch").timeBased().at(date);
+      ScriptApp.newTrigger("deleteLunch").timeBased().at(date).create();
     }
   }
 }
