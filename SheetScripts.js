@@ -16,12 +16,14 @@ var firstDataRowIndex = 2; //the first non-title row index
 var approvedStartDateColumnIndex = 1; //the column index of the approved annoucements end date column
 var approvedEndDateColumnIndex = 2; //the column index of the approved annoucements end date column   
 var today = new Date(); //gets the current date and time
+var lunchTitle = "Today's Lunch";
 
 function onNewDay() { //runs every day between midnight and 1am
   updateLunch(); //function call
   deleteExpiredAnnouncements(); //function call
   getFutureAnnoucements(); //function call
   getLetterDay();
+  cleanUpAnnouncements();
 }
 
 function deleteExpiredAnnouncements() { //deletes all expires announcements on the approved sheet
@@ -39,7 +41,7 @@ function deleteExpiredAnnouncements() { //deletes all expires announcements on t
 
 function getFutureAnnoucements() { //sends announcements from the future sheet to the normal approved sheet if their start date is today
   for (var rowIndex = futureApprovedAnnouncementsSheet.getLastRow(); rowIndex >= firstDataRowIndex; rowIndex--) { //starts at the last row of future approved announcements and works its way to the first
-    var currentStartDateCell = futureApprovedAnnouncementsSheet.getRange(rowIndex, approvedStartDateColumnIndex,1, 1); //gets the cell with the start date for the current row
+    var currentStartDateCell = futureApprovedAnnouncementsSheet.getRange(rowIndex, approvedStartDateColumnIndex, 1, 1); //gets the cell with the start date for the current row
     var currentStartDateCellValue = currentStartDateCell.getValue(); //gets the above cell's value
     var currentStartDate = new Date(currentStartDateCellValue); //makes a new Date object with that value
     if (today.getFullYear() > currentStartDate.getFullYear() || 
@@ -60,7 +62,12 @@ function updateLunch() { //parses the lunch from the school's website
   var html = request.getContentText(); //gets the html text of the lunch webpage
   var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; //a list of the months in order
   var monthName = monthNames[today.getMonth()]; //based on todays month [0-11], get the month name
-  html = html.substring(html.indexOf(monthName));
+  var nextMonthName = monthNames[(today.getMonth() + 1) % 12];
+  if (html.indexOf(nextMonthName) === -1) {
+    html = html.substring(html.indexOf(monthName));
+  } else {  
+    html = html.substring(html.indexOf(monthName), html.indexOf(nextMonthName));
+  }  
   var startStr = "<p>" + dayNum + "<\/p>"; //forms the start of today's menu
   var endStr = "<br \/><\/p>"; //today's menu ends in this
   var startIndex = html.indexOf(startStr); //finds where the start is
@@ -73,10 +80,23 @@ function updateLunch() { //parses the lunch from the school's website
   }
   var todayString = dateToString(today); //today's date in the format mm/dd/yyyy
   var lunchImg = "images\\lunch-announcement-image.png"; //sets the image url
-  var lunchData = [[todayString, todayString, menu, "Today's Lunch", lunchImg]]; //creates a array of the lunch data 
+  var lunchData = [[todayString, todayString, menu, lunchTitle, lunchImg]]; //creates a array of the lunch data 
   approvedAnnouncementsSheet.insertRowBefore(firstDataRowIndex); //inserts a row after the header row
   var lunchRow = approvedAnnouncementsSheet.getRange(firstDataRowIndex, 1, 1, endAnnouncementDataColumn - startAnnouncementDataColumn + 1); //gets that row as a range
   lunchRow.setValues(lunchData); //sets the row to contain the lunch data
+}
+
+function deleteLunch() {
+  if (approvedAnnouncementsSheet.getLastRow() <= 2) {
+    addNoAnnouncements();
+  }  
+  for (var rowIndex = approvedAnnouncementsSheet.getLastRow(); rowIndex >= firstDataRowIndex; rowIndex--) {
+    var titleColumn = 4;
+    var title = approvedAnnouncementsSheet.getRange(rowIndex, titleColumn, 1, 1).getValue();
+    if (title === lunchTitle) {
+      approvedAnnouncementsSheet.deleteRow(rowIndex);
+    }
+  }
 }
   
 function onEdit() { //set as the trigger to an edit
@@ -129,6 +149,33 @@ function onFormSubmit() { //set as the trigger to a form submission
   }
 }
 
+function cleanUpAnnouncements() {
+  if (approvedAnnouncementsSheet.getLastRow() > 2) { //other announcements
+    if (approvedAnnouncementsSheet.getRange(2, 3, 1, 1).getValue() === "No lunch today!") { //if there is no lunch and other announcements, delete lunch
+      deleteLunch();
+    } else { //if there is lunch and other announcements, delete lunch after 7th period
+      var date = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 50, 0, 0);
+      ScriptApp.newTrigger("deleteLunch").timeBased().at(date).create();
+    }
+  } else { //only lunch
+    if (approvedAnnouncementsSheet.getRange(2, 3, 1, 1).getValue() === "No lunch today!") { //if only announcement is lunch and there is no lunch, no announcements
+      addNoAnnouncements();
+      deleteLunch();
+    } else { //if only announcement is lunch, delete after 7th and no announcements
+      var date = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 50, 0, 0);
+      ScriptApp.newTrigger("deleteLunch").timeBased().at(date).create();
+    }
+  }
+}
+
+function addNoAnnouncements() {
+  var todayString = dateToString(today); //today's date in the format mm/dd/yyyy
+  var data = [[todayString, todayString, "There are currently no announcements!", "No Announcements"]];
+  approvedAnnouncementsSheet.insertRowBefore(firstDataRowIndex); //inserts a row after the header row
+  var row = approvedAnnouncementsSheet.getRange(firstDataRowIndex, 1, 1, endAnnouncementDataColumn - startAnnouncementDataColumn); //gets that row as a range
+  row.setValues(data);
+}  
+
 function dateToString(date) { //takes in a Date object and returns a string in the form mm/dd/yyyy
   return (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear(); //returns the string
 }
@@ -152,8 +199,8 @@ function getLetterDay() {
         case "D DAY":
         case "E DAY":
         case "F DAY":
-        	var title = events[i].getTitle();
-          	sheet.getRange("A1").setValue(event.substring(0, event.indexOf("DAY") - 1));
+          var title = events[i].getTitle();
+            sheet.getRange("A1").setValue(event.substring(0, event.indexOf("DAY") - 1));
           
       }   
     }  
