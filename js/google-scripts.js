@@ -69,8 +69,10 @@ function pullAnnouncements() {
 }
 
 function refreshAnnouncements() {
+	$('#announcements-card').carousel("pause")
 	$('#annoucement-carousel-item-container').empty();
 	pullAnnouncements();
+	$('#announcements-card')..carousel("cycle")
 }
 
 setInterval(refreshAnnouncements, 1800000);
