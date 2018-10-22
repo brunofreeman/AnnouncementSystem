@@ -17,6 +17,8 @@ var approvedStartDateColumnIndex = 1; //the column index of the approved annouce
 var approvedEndDateColumnIndex = 2; //the column index of the approved annoucements end date column   
 var today = new Date(); //gets the current date and time
 var lunchTitle = "Today's Lunch";
+var noAnnouncementsTitle = "No Announcements";
+var titleColumn = 4;
 
 function onNewDay() { //runs every day between midnight and 1am
   updateLunch(); //function call
@@ -87,7 +89,6 @@ function deleteLunch() {
     addNoAnnouncements();
   }  
   for (var rowIndex = approvedAnnouncementsSheet.getLastRow(); rowIndex >= firstDataRowIndex; rowIndex--) {
-    var titleColumn = 4;
     var title = approvedAnnouncementsSheet.getRange(rowIndex, titleColumn, 1, 1).getValue();
     if (title === lunchTitle) {
       approvedAnnouncementsSheet.deleteRow(rowIndex);
@@ -118,7 +119,13 @@ function approveAnnouncement(rowIndex) { //sends an announcement to the archive 
   if (today.getFullYear() > startDate.getFullYear() || 
      (today.getFullYear() === startDate.getFullYear() && today.getMonth() > startDate.getMonth()) || 
      (today.getFullYear() === startDate.getFullYear() && today.getMonth() === startDate.getMonth() && today.getDate() >= startDate.getDate())) { //if today's date is after the start date or is the start date
-       approvedAnnouncementsSheet.appendRow(transferValuesCore); //copies core values to approved sheet
+		approvedAnnouncementsSheet.appendRow(transferValuesCore); //copies core values to approved sheet
+	    for (var rowIndex2 = approvedAnnouncementsSheet.getLastRow(); rowIndex2 >= firstDataRowIndex; rowIndex2--) { //delete the no announcements announcement if it's there
+	    	var title = approvedAnnouncementsSheet.getRange(rowIndex2, titleColumn, 1, 1).getValue();
+	    	if (title === noAnnouncementsTitle) {
+	      		approvedAnnouncementsSheet.deleteRow(rowIndex2);
+	    	}
+		}
   } else { //otherwise
     futureApprovedAnnouncementsSheet.appendRow(transferValuesCore); //copies core values to future approved sheet
   }
@@ -166,7 +173,7 @@ function cleanUpAnnouncements() {
 
 function addNoAnnouncements() {
   var todayString = dateToString(today); //today's date in the format mm/dd/yyyy
-  var data = [[todayString, todayString, "There are currently no announcements!", "No Announcements"]];
+  var data = [[todayString, todayString, "There are currently no announcements!", noAnnouncementsTitle]];
   approvedAnnouncementsSheet.insertRowBefore(firstDataRowIndex); //inserts a row after the header row
   var row = approvedAnnouncementsSheet.getRange(firstDataRowIndex, 1, 1, endAnnouncementDataColumn - startAnnouncementDataColumn); //gets that row as a range
   row.setValues(data);
