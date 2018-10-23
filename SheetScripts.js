@@ -65,11 +65,11 @@ function updateLunch() { //parses the lunch from the school's website
   var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; //a list of the months in order
   var monthName = monthNames[today.getMonth()]; //based on todays month [0-11], get the month name
   var nextMonthName = monthNames[(today.getMonth() + 1) % 12];
-  if (html.indexOf(nextMonthName) === -1) {
+  if (html.indexOf(nextMonthName) == -1) {
     html = html.substring(html.indexOf(monthName));
-  } else {  
+  } else {
     html = html.substring(html.indexOf(monthName), html.indexOf(nextMonthName));
-  }  
+  }
   var startStr = "<p>" + dayNum + "<\/p>"; //forms the start of today's menu
   var endStr = "<br \/><\/p>"; //today's menu ends in this
   var startIndex = html.indexOf(startStr); //finds where the start is
@@ -162,7 +162,7 @@ function cleanUpAnnouncements() {
       deleteLunch();
     } else { //if there is lunch and other announcements, delete lunch after 7th period
       var date = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 50, 0, 0);
-      ScriptApp.newTrigger("deleteLunch").timeBased().at(date).create();
+      ScriptApp.newTrigger("deleteLunch").timeBased().at(date);
     }
   } else { //only lunch
     if (approvedAnnouncementsSheet.getRange(2, 3, 1, 1).getValue() === "No lunch today!") { //if only announcement is lunch and there is no lunch, no announcements
@@ -170,7 +170,7 @@ function cleanUpAnnouncements() {
       deleteLunch();
     } else { //if only announcement is lunch, delete after 7th and no announcements
       var date = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 50, 0, 0);
-      ScriptApp.newTrigger("deleteLunch").timeBased().at(date).create();
+      ScriptApp.newTrigger("deleteLunch").timeBased().at(date);
     }
   }
 }
@@ -206,8 +206,8 @@ function getLetterDay() {
         case "D DAY":
         case "E DAY":
         case "F DAY":
-          var title = events[i].getTitle();
-            sheet.getRange("A1").setValue(event.substring(0, event.indexOf("DAY") - 1));
+        	var title = events[i].getTitle();
+          	sheet.getRange("A1").setValue(event.substring(0, event.indexOf("DAY") - 1));
           
       }   
     }  
