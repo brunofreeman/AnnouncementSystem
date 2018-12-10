@@ -1,8 +1,8 @@
 //client secret = dL5r3yMMjmeHxKNPHAjHbu9f
 var CLIENT_ID = '835795750372-1hej792ghu2omccu5061a2nsrtrjuhh2.apps.googleusercontent.com';
 var API_KEY = 'AIzaSyBt5O0GLMXaSYKphWXikYa9CQ2HcdiKhjw';
-var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
-var SCOPES = "https://www.googleapis.com/auth/spreadsheets.readonly";
+var DISCOVERY_DOCS = ['https://sheets.googleapis.com/$discovery/rest?version=v4'];
+var SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly';
 
 function handleClientLoad() {
 	gapi.load('client:auth2', initClient);
@@ -22,6 +22,7 @@ function initClient() {
 function pullSheetData() {
 	pullLetterDay();
 	pullAnnouncements();
+	$('#announcements-card').carousel('cycle');
 }
 
 var letterDayCell = 'Calendar!A1'
@@ -65,17 +66,17 @@ function pullAnnouncements() {
 			$('#annoucement-carousel-item-container').append(element);
 		}
 		resizeElements();
-		$('#announcements-card').carousel("cycle");
 	});
 }
 
 function refreshAnnouncements() {
-	$('#announcements-card').carousel("pause");
+	$('#announcements-card').carousel('pause');
 	$('#annoucement-carousel-item-container').empty();
 	pullAnnouncements();
+	$('#announcements-card').carousel('cycle');
 }
 
-setInterval(refreshAnnouncements, 1800000);
+/*setInterval(refreshAnnouncements, 1800000);
 
 var now = new Date();
 var tomorrow = new Date();
@@ -91,4 +92,4 @@ function refreshLetterDay() {
 	setTimeout(refreshLetterDay, millisecondsToTommorow);
 }
 
-setTimeout(refreshLetterDay, millisecondsToTommorow);
+setTimeout(refreshLetterDay, millisecondsToTommorow);*/
