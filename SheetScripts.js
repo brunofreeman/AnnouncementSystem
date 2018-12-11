@@ -65,7 +65,7 @@ function updateLunch() { //parses the lunch from the school's website
   var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; //a list of the months in order
   var monthName = monthNames[today.getMonth()]; //based on todays month [0-11], get the month name
   var nextMonthName = monthNames[(today.getMonth() + 1) % 12];
-  if (html.indexOf(nextMonthName) == -1) {
+  if (html.indexOf(monthName) > html.indexOf(nextMonthName)) {
     html = html.substring(html.indexOf(monthName));
   } else {
     html = html.substring(html.indexOf(monthName), html.indexOf(nextMonthName));
