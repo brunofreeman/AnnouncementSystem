@@ -18,7 +18,6 @@ function initClient() {
 		//pullSheetData();
 		var element = '';
 		element = '<div class="item announcement-item active">';
-		data[i][imageURLColumn] = ;
 		element += '<div class="announcement-item-text"><div class="announcement-item-part announcement-item-title"><span>' + 'Test' + '</span></div>';
 		element += '<div class="announcement-item-part announcement-item-body"><span>' + 'Test Announcement!' + '</span></div></div>';
 		element += '<div class="announcement-item-part announcement-item-img-div"><img class="announcement-item-img" src="' + 'images\\default-announcement-image.png' + '"></div>';
