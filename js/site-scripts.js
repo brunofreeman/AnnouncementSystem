@@ -96,8 +96,10 @@ function updateClock() {
 		case 14:
 			if (minute >= 45) {
 				period = 'AS';
-			} else {
+			} else if (minute >= 14) {
 				period = 'AP';
+			} else {
+				period = 'P9';
 			}
 			break;
 		default:
