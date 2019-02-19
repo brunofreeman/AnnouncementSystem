@@ -17,6 +17,7 @@ var approvedStartDateColumnIndex = 1; //the column index of the approved annouce
 var approvedEndDateColumnIndex = 2; //the column index of the approved annoucements end date column   
 var today = new Date(); //gets the current date and time
 var lunchTitle = "Today's Lunch";
+var noLunchText = "No lunch today!";
 var noAnnouncementsTitle = "No Announcements";
 var titleColumn = 4;
 
@@ -76,7 +77,7 @@ function updateLunch() { //parses the lunch from the school's website
   var endIndex = html.indexOf(endStr, startIndex) + endStr.length; //finds the end
   var menu = html.substring(startIndex + startStr.length, endIndex); //gets the menu from all of the webpage text
   if (startIndex === -1 || menu.indexOf("Superintendents<br />Conference Day") != -1 || menu.indexOf("NO SCHOOL") != -1 || menu.indexOf(" <br \/><br \/><br \/><br \/><br \/><br \/><br \/><br \/>") != -1) { //if the menu wasn't found or it's invalid
-    menu = "No lunch today!"; //set to default string
+    menu = noLunchText; //set to default string
   } else { //otherwise, trim off unnecessary tags
     menu = menu.substring(18, menu.length - 4); //trim
   }
@@ -158,15 +159,14 @@ function onFormSubmit() { //set as the trigger to a form submission
 
 function cleanUpAnnouncements() {
   if (approvedAnnouncementsSheet.getLastRow() > 2) { //other announcements
-    if (approvedAnnouncementsSheet.getRange(2, 3, 1, 1).getValue() === "No lunch today!") { //if there is no lunch and other announcements, delete lunch
+    if (approvedAnnouncementsSheet.getRange(2, 3, 1, 1).getValue() === noLunchText) { //if there is no lunch and other announcements, delete lunch
       deleteLunch();
     } else { //if there is lunch and other announcements, delete lunch after 7th period
       var date = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 50, 0, 0);
       ScriptApp.newTrigger("deleteLunch").timeBased().at(date);
     }
   } else { //only lunch
-    if (approvedAnnouncementsSheet.getRange(2, 3, 1, 1).getValue() === "No lunch today!") { //if only announcement is lunch and there is no lunch, no announcements
-      addNoAnnouncements();
+    if (approvedAnnouncementsSheet.getRange(2, 3, 1, 1).getValue() === noLunchText) { //if only announcement is lunch and there is no lunch, no announcements
       deleteLunch();
     } else { //if only announcement is lunch, delete after 7th and no announcements
       var date = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 50, 0, 0);
@@ -209,7 +209,7 @@ function getLetterDay() {
         	var title = events[i].getTitle();
           	sheet.getRange("A1").setValue(event.substring(0, event.indexOf("DAY") - 1));
           
-      }   
-    }  
-  }  
+      } 
+    }
+  }
 }
