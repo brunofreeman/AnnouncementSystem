@@ -163,14 +163,14 @@ function cleanUpAnnouncements() {
       deleteLunch();
     } else { //if there is lunch and other announcements, delete lunch after 7th period
       var date = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 50, 0, 0);
-      ScriptApp.newTrigger("deleteLunch").timeBased().at(date);
+      ScriptApp.newTrigger("deleteLunch").timeBased().at(date).create();
     }
   } else { //only lunch
     if (approvedAnnouncementsSheet.getRange(2, 3, 1, 1).getValue() === noLunchText) { //if only announcement is lunch and there is no lunch, no announcements
       deleteLunch();
     } else { //if only announcement is lunch, delete after 7th and no announcements
       var date = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 50, 0, 0);
-      ScriptApp.newTrigger("deleteLunch").timeBased().at(date);
+      ScriptApp.newTrigger("deleteLunch").timeBased().at(date).create();
     }
   }
 }
