@@ -66,6 +66,7 @@ function pullAnnouncements() {
 			$('#annoucement-carousel-item-container').append(element);
 		}
 		resizeElements();
+		$('#announcements-card').carousel('cycle');
 	});
 }
 
@@ -73,7 +74,6 @@ function refreshAnnouncements() {
 	$('#announcements-card').carousel('pause');
 	$('#annoucement-carousel-item-container').empty();
 	pullAnnouncements();
-	$('#announcements-card').carousel('cycle');
 }
 
 setInterval(refreshAnnouncements, 1800000);
