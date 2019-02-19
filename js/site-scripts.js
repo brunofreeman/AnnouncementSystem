@@ -128,7 +128,7 @@ function updateClock() {
 
 window.addEventListener('resize', resizeElements);
 updateClock();
-$('#announcements-card, #slideshow-card').carousel();
+$('#announcements-card').carousel();
 $('#announcements-card').on('slid.bs.carousel', function() {
     resizeElements();
 });
@@ -150,5 +150,8 @@ $.ajax({
                 $("#media-carousel-item-container").append(element);
             } 
         });
+    },
+    complete: function(data) {
+    	$('#slideshow-card').carousel();
     }
 });
