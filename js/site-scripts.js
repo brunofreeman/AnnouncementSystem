@@ -45,63 +45,73 @@ function updateClock() {
 			period = 'BS';
 			break;
 		case 7:
-			period = 'HR';
+			if (minute >= 40) {
+				period = 'P1';
+			} else {
+				period = 'BS';
+			}	
 			break;
 		case 8:
-			if (minute >= 38) {
+			if (minute >= 23) {
 				period = 'P2';
 			} else {
 				period = 'P1';
 			}
 			break;
 		case 9:
-			if (minute >=  20) {
+			if (minute >=  51) {
+				period = 'P4';
+			} else if (minute >= 7) {
 				period = 'P3';
 			} else {
-				period = 'P2';
+				period = 'P2'
 			}
 			break;
 		case 10:
-			if (minute >= 44) {
+			if (minute >= 59) {
 				period = 'P5';
-			} else if (minute >= 2) {
-				period = 'P4';
+			} else if (minute >= 35) {
+				period = 'ADV';
 			} else {
-				period = 'P3';
+				period = 'P4';
 			}
 			break;
 		case 11:
-			if (minute >= 26) {
+			if (minute >= 43) {
 				period = 'P6';
 			} else {
 				period = 'P5';
 			}
 			break;
 		case 12:
-			if (minute >= 50) {
-				period = 'P8';
-			} else if (minute >= 8) {
+			if (minute >= 27) {
 				period = 'P7';
 			} else {
 				period = 'P6';
 			}
 			break;
 		case 13:
-			if (minute >= 32) {
+			if (minute >= 55) {
 				period = 'P9';
-			} else {
+			} else if (minute >= 11) {
 				period = 'P8';
+			} else {
+				period = 'P7';
 			}
 			break;
 		case 14:
-			if (minute >= 45) {
-				period = 'AS';
-			} else if (minute >= 14) {
+			if (minute >= 41) {
 				period = 'AP';
 			} else {
 				period = 'P9';
 			}
 			break;
+		case 15:
+			if (minute >= 16) {
+				period = 'AS';
+			} else {
+				period = 'AP';
+			}
 		default:
 			period = 'AS';
 	}
