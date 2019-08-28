@@ -1,5 +1,5 @@
 //client secret = dL5r3yMMjmeHxKNPHAjHbu9f
-var CLIENT_ID = '835795750372-1hej792ghu2omccu5061a2nsrtrjuhh2.apps.googleusercontent.com';
+var CLIENT_ID = '293061443215-lj6s41kedd8q6c3uhtkveq0nl58mruch.apps.googleusercontent.com';
 var API_KEY = 'AIzaSyBt5O0GLMXaSYKphWXikYa9CQ2HcdiKhjw';
 var DISCOVERY_DOCS = ['https://sheets.googleapis.com/$discovery/rest?version=v4'];
 var SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly';
