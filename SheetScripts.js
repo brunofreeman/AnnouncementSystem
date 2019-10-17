@@ -14,7 +14,7 @@ var startAnnouncementDataColumn = 2; //the start of the core announcement data (
 var endAnnouncementDataColumn = 6; //the end of the core data
 var firstDataRowIndex = 2; //the first non-title row index
 var approvedStartDateColumnIndex = 1; //the column index of the approved annoucements end date column
-var approvedEndDateColumnIndex = 2; //the column index of the approved annoucements end date column   
+var approvedEndDateColumnIndex = 2; //the column index of the approved annoucements end date column 
 var today = new Date(); //gets the current date and time
 var lunchTitle = "Today's Lunch";
 var noLunchText = "No lunch today!";
@@ -34,8 +34,8 @@ function deleteExpiredAnnouncements() { //deletes all expires announcements on t
     var currentEndDateCell = approvedAnnouncementsSheet.getRange(rowIndex, approvedEndDateColumnIndex, 1, 1); //gets the cell with the end date for the current row
     var currentEndDateCellValue = currentEndDateCell.getValue(); //gets the above cell's value
     var currentEndDate = new Date(currentEndDateCellValue); //makes a new Date object with that value
-    if (today.getFullYear() > currentEndDate.getFullYear() || 
-       (today.getFullYear() === currentEndDate.getFullYear() && today.getMonth() > currentEndDate.getMonth()) || 
+    if (today.getFullYear() > currentEndDate.getFullYear() ||
+       (today.getFullYear() === currentEndDate.getFullYear() && today.getMonth() > currentEndDate.getMonth()) ||
        (today.getFullYear() === currentEndDate.getFullYear() && today.getMonth() === currentEndDate.getMonth() && today.getDate() > currentEndDate.getDate())) { //if today's date is after the end date
          approvedAnnouncementsSheet.deleteRow(rowIndex); //delete the row with that end date (it will still be in the archive)
     }
@@ -47,8 +47,8 @@ function getFutureAnnoucements() { //sends announcements from the future sheet t
     var currentStartDateCell = futureApprovedAnnouncementsSheet.getRange(rowIndex, approvedStartDateColumnIndex, 1, 1); //gets the cell with the start date for the current row
     var currentStartDateCellValue = currentStartDateCell.getValue(); //gets the above cell's value
     var currentStartDate = new Date(currentStartDateCellValue); //makes a new Date object with that value
-    if (today.getFullYear() > currentStartDate.getFullYear() || 
-       (today.getFullYear() === currentStartDate.getFullYear() && today.getMonth() > currentStartDate.getMonth()) || 
+    if (today.getFullYear() > currentStartDate.getFullYear() ||
+       (today.getFullYear() === currentStartDate.getFullYear() && today.getMonth() > currentStartDate.getMonth()) ||
        (today.getFullYear() === currentStartDate.getFullYear() && today.getMonth() === currentStartDate.getMonth() && today.getDate() >= currentStartDate.getDate())) { //if today's date is after the start date or is the start date
          var transferRow = futureApprovedAnnouncementsSheet.getRange(rowIndex, 1, 1, futureApprovedAnnouncementsSheet.getMaxColumns()); //gets the all of the announcement data
          var transferValues = transferRow.getValues()[0]; //gets the values of the above range
@@ -83,7 +83,7 @@ function updateLunch() { //parses the lunch from the school's website
   }
   var todayString = dateToString(today); //today's date in the format mm/dd/yyyy
   var lunchImg = "images\\lunch-announcement-image.png"; //sets the image url
-  var lunchData = [[todayString, todayString, menu, lunchTitle, lunchImg]]; //creates a array of the lunch data 
+  var lunchData = [[todayString, todayString, menu, lunchTitle, lunchImg]]; //creates a array of the lunch data
   approvedAnnouncementsSheet.insertRowBefore(firstDataRowIndex); //inserts a row after the header row
   var lunchRow = approvedAnnouncementsSheet.getRange(firstDataRowIndex, 1, 1, endAnnouncementDataColumn - startAnnouncementDataColumn + 1); //gets that row as a range
   lunchRow.setValues(lunchData); //sets the row to contain the lunch data
@@ -92,7 +92,7 @@ function updateLunch() { //parses the lunch from the school's website
 function deleteLunch() {
   if (approvedAnnouncementsSheet.getLastRow() <= 2) {
     addNoAnnouncements();
-  }  
+  }
   for (var rowIndex = approvedAnnouncementsSheet.getLastRow(); rowIndex >= firstDataRowIndex; rowIndex--) {
     var title = approvedAnnouncementsSheet.getRange(rowIndex, titleColumn, 1, 1).getValue();
     if (title === lunchTitle) {
@@ -100,10 +100,10 @@ function deleteLunch() {
     }
   }
 }
-  
+
 function onEdit() { //set as the trigger to an edit
   var sheet = spreadsheet.getActiveSheet(); //gets the active sheet
-  var approveKeyword = "approve"; //the keyword used to approve an announcement     
+  var approveKeyword = "approve"; //the keyword used to approve an announcement   
   if (sheet.getName() === formResponseSheet.getName()) { //checks if it is the form response sheet
     var cell = sheet.getActiveCell(); //gets the active cell (the one just edited)
     if (cell.getRow() >= firstDataRowIndex && cell.getColumn() === approveColumnIndex && cell.getValue().toString() === approveKeyword) { //checks if it's in the approve column and the text in it is "approve"
@@ -121,16 +121,16 @@ function approveAnnouncement(rowIndex) { //sends an announcement to the archive 
   var startDateCell = formResponseSheet.getRange(rowIndex, startDateColumnIndex, 1, 1); //gets the cell with the start date
   var startDateCellValue = startDateCell.getValue(); //gets the above cell's value
   var startDate = new Date(startDateCellValue); //makes a new Date object with that value
-  if (today.getFullYear() > startDate.getFullYear() || 
-     (today.getFullYear() === startDate.getFullYear() && today.getMonth() > startDate.getMonth()) || 
+  if (today.getFullYear() > startDate.getFullYear() ||
+     (today.getFullYear() === startDate.getFullYear() && today.getMonth() > startDate.getMonth()) ||
      (today.getFullYear() === startDate.getFullYear() && today.getMonth() === startDate.getMonth() && today.getDate() >= startDate.getDate())) { //if today's date is after the start date or is the start date
-		approvedAnnouncementsSheet.appendRow(transferValuesCore); //copies core values to approved sheet
-	    for (var rowIndex2 = approvedAnnouncementsSheet.getLastRow(); rowIndex2 >= firstDataRowIndex; rowIndex2--) { //delete the no announcements announcement if it's there
-	    	var title = approvedAnnouncementsSheet.getRange(rowIndex2, titleColumn, 1, 1).getValue();
-	    	if (title === noAnnouncementsTitle) {
-	      		approvedAnnouncementsSheet.deleteRow(rowIndex2);
-	    	}
-		}
+    approvedAnnouncementsSheet.appendRow(transferValuesCore); //copies core values to approved sheet
+      for (var rowIndex2 = approvedAnnouncementsSheet.getLastRow(); rowIndex2 >= firstDataRowIndex; rowIndex2--) { //delete the no announcements announcement if it's there
+        var title = approvedAnnouncementsSheet.getRange(rowIndex2, titleColumn, 1, 1).getValue();
+        if (title === noAnnouncementsTitle) {
+            approvedAnnouncementsSheet.deleteRow(rowIndex2);
+        }
+    }
   } else { //otherwise
     futureApprovedAnnouncementsSheet.appendRow(transferValuesCore); //copies core values to future approved sheet
   }
@@ -138,16 +138,16 @@ function approveAnnouncement(rowIndex) { //sends an announcement to the archive 
 }
 
 function onFormSubmit() { //set as the trigger to a form submission
-  var adminEmails = ["freemanbru@slcs.org", "campbelmax@slcs.org"]; //school emails of the announcement admins
-  var spreadsheetUrl = "https://docs.google.com/spreadsheets/d/1ovki_EYdu7FC2OZKbxBvnwiKHkePdcamvjXzuXIw4NA/edit#gid=1183776242";
+  var adminEmails = ["jakobetuc@slcs.org", "meserolcar@slcs.org"]; //school emails of the announcement admins
+  var spreadsheetUrl = "https://docs.google.com/spreadsheets/d/1ovki_EYdu7FC2OZKbxBvnwiKHkePdcamvjXzuXIw4NA/edit";
   var approveColumn = formResponseSheet.getRange(firstDataRowIndex, approveColumnIndex, formResponseSheet.getMaxRows() - firstDataRowIndex + 1, 1); //gets the approve column data range
   approveColumn.setBorder(false, true, false, false, null, null, "lime", SpreadsheetApp.BorderStyle.SOLID_THICK); //sets the left border of the approve column green
   var submissionRow = formResponseSheet.getMaxRows() - 1; //the newest announcement will sort to the bottom row, except the one placeholder row that doesn't have a timestap
   var subject = "New Announcement Submission: " + formResponseSheet.getRange(submissionRow, announcementTitleColumnIndex, 1, 1).getValue(); //the subject line of an email
   var startDate = dateToString(new Date(formResponseSheet.getRange(submissionRow, startDateColumnIndex, 1, 1).getValue())); //gets the start date as a string
   var endDate = dateToString(new Date(formResponseSheet.getRange(submissionRow, endDateColumnIndex, 1, 1).getValue())); //gets the end date as a string
-  var message = "Submitted by: " + formResponseSheet.getRange(submissionRow, emailAddressColumnIndex, 1, 1).getValue() + 
-                "\n\nAnnouncement: " + formResponseSheet.getRange(submissionRow, announcementColumnIndex, 1, 1).getValue() +   
+  var message = "Submitted by: " + formResponseSheet.getRange(submissionRow, emailAddressColumnIndex, 1, 1).getValue() +
+                "\n\nAnnouncement: " + formResponseSheet.getRange(submissionRow, announcementColumnIndex, 1, 1).getValue() + 
                 "\n\nTitle: " + formResponseSheet.getRange(submissionRow, announcementTitleColumnIndex, 1, 1).getValue() +
                 "\n\nDates to run: " + startDate + "-" + endDate +
                 "\n\nImage: " + formResponseSheet.getRange(submissionRow, imageUrlColumnIndex, 1, 1).getValue() +
@@ -181,7 +181,7 @@ function addNoAnnouncements() {
   approvedAnnouncementsSheet.insertRowBefore(firstDataRowIndex); //inserts a row after the header row
   var row = approvedAnnouncementsSheet.getRange(firstDataRowIndex, 1, 1, endAnnouncementDataColumn - startAnnouncementDataColumn); //gets that row as a range
   row.setValues(data);
-}  
+}
 
 function dateToString(date) { //takes in a Date object and returns a string in the form mm/dd/yyyy
   return (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear(); //returns the string
@@ -198,18 +198,24 @@ function getLetterDay() {
   sheet.getRange("A1").setValue("-");
   if (events) {
     for (var i = 0; i < events.length; i++) {
-      var event = events[i].getTitle().toUpperCase().trim();
-      switch (event) {
+      var event = events[i].getTitle().toUpperCase().split(" - ");
+      switch (event[0]) {
         case "A DAY":
         case "B DAY":
         case "C DAY":
         case "D DAY":
         case "E DAY":
         case "F DAY":
-        	var title = events[i].getTitle();
-          	sheet.getRange("A1").setValue(event.substring(0, event.indexOf("DAY") - 1));
-          
-      } 
+          sheet.getRange("A1").setValue(event[0].substring(0, event[0].indexOf("DAY") - 1));
+      }
+      switch (event[1]) {
+        case "CYCLE 1":
+        case "CYCLE 2":
+        case "CYCLE 3":
+        case "CYCLE 4":
+        case "CYCLE 5":
+          sheet.getRange("A2").setValue("C" + event[1].substring(event[1].indexOf(" ") + 1));
+      }
     }
   }
 }
