@@ -25,7 +25,7 @@ function pullSheetData() {
 	$('#announcements-card').carousel('cycle');
 }
 
-var letterDayCell = 'Calendar!A1'
+var letterDayCell = 'Calendar!A1';
 
 function pullLetterDay() {
 	gapi.client.sheets.spreadsheets.values.get({
@@ -34,6 +34,19 @@ function pullLetterDay() {
 	}).then(function(response) {
 		var data = response.result.values;
 		$('#letter-day-section').html('<span>' + data[0][0] + '</span>');
+		resizeElements();
+	});
+}
+
+var cycleCell = 'Calendar!A2';
+
+function pullCycle() {
+	gapi.client.sheets.spreadsheets.values.get({
+		spreadsheetId: '1ovki_EYdu7FC2OZKbxBvnwiKHkePdcamvjXzuXIw4NA',
+		range: letterDayCell,
+	}).then(function(response) {
+		var data = response.result.values;
+		$('#cycle-section').html('<span>' + data[0][0] + '</span>');
 		resizeElements();
 	});
 }
@@ -85,6 +98,7 @@ var millisecondsToTommorow = new Date(tomorrow.getFullYear(), tomorrow.getMonth(
 
 function refreshLetterDay() {
 	pullLetterDay();
+	pullCycle();
 	now = new Date();
 	tomorrow = new Date();
 	tomorrow.setDate(tomorrow.getDate() + 1);
